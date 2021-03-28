@@ -19,7 +19,7 @@ public class LoginModel implements Serializable{
         this.email=email;
         this.password=password;
     }
-    public String getEmail(String email)
+    public String getEmail()
     {
         return email;
     }
@@ -27,7 +27,7 @@ public class LoginModel implements Serializable{
     {
         this.email=email;
     }
-    public String getPassword(String password)
+    public String getPassword()
     {
         return password;
     }
