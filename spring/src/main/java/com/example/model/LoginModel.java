@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 public class LoginModel implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)//primary key 
+    @GeneratedValue(strategy = GenerationType.AUTO)   //primary key 
     @Column(nullable=false , updatable = false)
     private String email;
     private String password;
