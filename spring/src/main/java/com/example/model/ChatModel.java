@@ -40,5 +40,10 @@ public class ChatModel {
     public void setStatus(boolean status) {
         this.status = status;
     }
+    @Override
+    public String toString() {
+        return "ChatModel [chatHistory=" + chatHistory + ", chatId=" + chatId + ", primaryUser=" + primaryUser
+                + ", secondaryUser=" + secondaryUser + ", status=" + status + "]";
+    }
     
 }
