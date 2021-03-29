@@ -1,0 +1,85 @@
+<mat-toolbar  color="warn" class="navbar">
+    <div>E-Learning</div>
+    <div>
+        <button mat-button><a routerLink="/admindashboard" routerLinkActive=true>Home</a></button>
+        <button mat-button>Course</button>
+        <button mat-button><a routerLink="/login" routerLinkActive=true>Logout</a></button>
+</div>
+</mat-toolbar>
+
+<div class="search">
+    <mat-form-field appearance=outline>
+        <mat-label>Type here to search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" #input>
+      </mat-form-field>
+      <mat-icon>search</mat-icon>
+</div>
+<mat-grid-list cols="3" >
+  <mat-grid-tile colspan="2"><div class='table'>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <!-- S no Column -->
+      <ng-container matColumnDef="position">
+        <mat-header-cell *matHeaderCellDef> S No </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+    
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+      </ng-container>
+    
+      <!-- Option Column -->
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
+        <mat-cell *matCellDef="let element"><button mat-raised-button><mat-icon>edit</mat-icon></button><button mat-raised-button><mat-icon>delete</mat-icon></button></mat-cell>
+      </ng-container>
+    
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    </div></mat-grid-tile>
+  <mat-grid-tile colspan="1">
+  <div class=full>
+    <div class="log">
+      <div class=mat-title>Edit details</div>
+</div>
+  <div class=mail>
+    <mat-form-field floatLabel=never appearance='outline' color='warn'>
+    <mat-label>Enter email</mat-label>
+      <input matInput>
+  </mat-form-field>
+  </div>
+<div class=mail>
+    <mat-form-field floatLabel=never appearance='outline' color='warn'>
+    <mat-label>Enter Username</mat-label>
+        <input matInput>
+    </mat-form-field>
+</div>
+<div class=mail>
+    <mat-form-field floatLabel=never appearance='outline' color='warn'>
+        <mat-label>Enter Mobilenumber</mat-label>
+        <input matInput>
+    </mat-form-field>
+</div>
+<div class=mail>
+    <mat-form-field appearance='outline' color='warn'>
+        <mat-label>Enter Password</mat-label>
+        <input matInput>
+    </mat-form-field>
+</div>
+  <div class=login>
+    <button mat-raised-button>Update
+      </button>
+  </div>
+</div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+
