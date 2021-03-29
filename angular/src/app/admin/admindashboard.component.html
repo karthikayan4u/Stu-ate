@@ -2,7 +2,7 @@
     <div>E-Learning</div>
     <div>
         <button mat-button><a routerLink="/admindashboard" routerLinkActive=true>Home</a></button>
-        <button mat-button>Course</button>
+        <button mat-button><a routerLink="/resource" routerLinkActive=true>Course</a></button>
         <button mat-button><a routerLink="/login" routerLinkActive=true>Logout</a></button>
 </div>
 </mat-toolbar>
@@ -14,8 +14,9 @@
       </mat-form-field>
       <mat-icon>search</mat-icon>
 </div>
-<mat-grid-list cols="3" >
-  <mat-grid-tile colspan="2"><div class='table'>
+<mat-grid-list cols="3" style="text-align: center;">
+  <mat-grid-tile colspan="2">
+    <div class='table'>
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- S no Column -->
       <ng-container matColumnDef="position">

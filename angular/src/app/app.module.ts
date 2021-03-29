@@ -10,9 +10,10 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { AdmindashboardComponent } from './admin/admindashboard.component';
 import { UserComponent } from './user/user.component';
 import { ResourceComponent } from './resource/resource.component';
-
-
-
+import { ResourceService } from './resource/resource.service';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -30,9 +31,12 @@ import { ResourceComponent } from './resource/resource.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    PdfViewerModule
   ],
-  providers: [],
+  providers: [ResourceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
