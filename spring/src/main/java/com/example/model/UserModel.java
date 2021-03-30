@@ -7,11 +7,11 @@ import javax.persistence.*;
 @Entity
 public class UserModel implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)//primarykey declaration
+    //primarykey declaration
     @Column(nullable = false, updatable = false)
+    private String email;
     private String username;
     private String password;
-    private String email;
     private String mobileNumber;
     private String qualification;
     private String role;
@@ -20,7 +20,8 @@ public class UserModel implements Serializable {
     public UserModel() {} // very important
 
     //contructor
-    public UserModel(String password, String email, String mobileNumber, String qualification, String role, Boolean active) {
+    public UserModel(String username, String password, String email, String mobileNumber, String qualification, String role, Boolean active) {
+        this.username = username;
         this.password = password;
         this.email = email;
         this.mobileNumber = mobileNumber;

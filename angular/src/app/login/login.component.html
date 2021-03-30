@@ -6,25 +6,28 @@
   <div class="main col-5" >
     <div class="log"><div class=mat-title>Login</div>
   </div>
+  <form #addForm="ngForm" (ngSubmit)="onCheckUser(addForm)">
     <div class=mailpass>
       <mat-form-field appearance='outline' color='warn'>
       <mat-label>Enter email</mat-label>
-      <input name="name" type="name" matInput>
+      <input type="text" ngModel name="email" class="form-control" id="email" placeholder="E-mail" required matInput>
     </mat-form-field>
     <div>
     <mat-form-field appearance='outline' color='warn'>
       <mat-label>Enter Password</mat-label>
-      <input name="password" type="password" matInput>
+      <input type="text" ngModel name="password" class="form-control" id="password" placeholder="Password" required matInput>
     </mat-form-field>
     </div>
     </div>
     <div class=login>
-      <button mat-raised-button>login</button>
+      <button mat-raised-button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >login</button>
     </div>
+    
     <div class=sign>
-      <div>New User?<button disableRipple mat-button><a routerLink="/signup" routerLinkActive=true>signup</a></button>
+      <div>New User?<button type="button" id="add-login-form" class="btn btn-secondary" data-dismiss="modal" disableRipple mat-button><a routerLink="/signup" routerLinkActive=true>signup</a></button>
       </div>
     </div>
+  </form>
   </div>
   <div class="learn col-7" style="text-align: center;">
     <img src="assets\img\E_learning logo.jpg" alt="loading">

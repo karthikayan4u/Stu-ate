@@ -1,29 +1,28 @@
 <mat-toolbar color="warn">
     <span>E-Learning</span>
   </mat-toolbar>
-  
-  
   <div class="row"> 
     <div class="main col-5" style="text-align: center;" >
       <div class="log">
         <div class=mat-title>Signup</div>
   </div>
+  <form #addForm="ngForm" (ngSubmit)="onAddUser(addForm)">
     <div class=mail>
       <mat-form-field floatLabel=never appearance='outline' color='warn'>
       <mat-label>Enter email</mat-label>
-        <input matInput type="email">
+        <input matInput type="text" ngModel name="email" class="form-control" id="email" placeholder="E-mail" required>
     </mat-form-field>
     </div>
   <div class=mail>
       <mat-form-field floatLabel=never appearance='outline' color='warn'>
       <mat-label>Enter Username</mat-label>
-          <input matInput type="name">
+          <input matInput type="text" ngModel name="username" class="form-control" id="username" placeholder="Username" required>
       </mat-form-field>
   </div>
   <div class=mail>
       <mat-form-field floatLabel=never appearance='outline' color='warn'>
           <mat-label>Enter Mobilenumber</mat-label>
-          <input matInput type="number">
+          <input matInput type="text" ngModel name="mobileNumber" class="form-control" id="mobileNumber" placeholder="Mobile Number" required>
       </mat-form-field>
   </div>
   <div class=mail>
@@ -35,16 +34,30 @@
   <div class=mail>
       <mat-form-field floatLabel=never appearance='outline' color='warn'>
       <mat-label>Confirm password</mat-label>
-        <input matInput type="password">
+        <input matInput type="text" ngModel name="password" class="form-control" id="password" placeholder="Password" required>
+    </mat-form-field>
+  </div>
+  <div class=mail>
+    <mat-form-field floatLabel=never appearance='outline' color='warn'>
+        <mat-label>Enter Qualification</mat-label>
+        <input matInput type="text" ngModel name="qualification" class="form-control" id="qualification" placeholder="Qualification" required>
+    </mat-form-field>
+  </div>
+  <div class=mail>
+    <mat-form-field floatLabel=never appearance='outline' color='warn'>
+        <mat-label>Enter Role</mat-label>
+        <input matInput type="text" ngModel name="role" class="form-control" id="role" placeholder="Role" required>
     </mat-form-field>
   </div>
     <div class=login>
-      <button mat-raised-button>signup
+      <button mat-raised-button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Signup
         </button>
-    </div><div class=sign>
-      <div>Already a User?<button disableRipple mat-button><a class="anchor" routerLink="/login" routerLinkActive=true>Login</a></button>
+    </div>
+    <div class=sign>
+      <div>Already a User?<button type="button" id="add-signup-form" class="btn btn-secondary" data-dismiss="modal" disableRipple mat-button><a class="anchor" routerLink="/login" routerLinkActive=true>Login</a></button>
       </div>
     </div>
+  </form>
     </div>
     <div class="learn col-7" style="text-align: center;">
     <img src="assets\img\E_learning logo.jpg" alt="loading">
