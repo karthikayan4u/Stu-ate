@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -113,3 +114,15 @@ public onOpenModal(resource: Resource, mode: string): void {
 }
 
 }
+=======
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  title = 'E-learning';
+}
+>>>>>>> 7d393c768cf736c3f1ab84f1ef9db963eff55e80

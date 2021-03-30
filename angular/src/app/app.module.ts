@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -19,3 +20,47 @@ import { ResourceService } from './resource.service';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+=======
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material/material.module';
+import { SignupComponent } from './signup/signup.component';
+import { LoginComponent } from './login/login.component';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { AdmindashboardComponent } from './admin/admindashboard.component';
+import { UserComponent } from './user/user.component';
+import { ResourceComponent } from './resource/resource.component';
+import { ResourceService } from './resource/resource.service';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
+
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    SignupComponent,
+    LoginComponent,
+    PagenotfoundComponent,
+    AdmindashboardComponent,
+    UserComponent,
+    ResourceComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    PdfViewerModule
+  ],
+  providers: [ResourceService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+>>>>>>> 7d393c768cf736c3f1ab84f1ef9db963eff55e80

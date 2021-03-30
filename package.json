@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/material": "^11.2.6",
+    "ng2-pdf-viewer": "^6.4.1"
+  }
+}
