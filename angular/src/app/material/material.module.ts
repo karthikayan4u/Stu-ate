@@ -7,6 +7,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatCardModule} from '@angular/material/card';
+
 const materialcompnents =[
   MatButtonModule,
   MatToolbarModule,
@@ -15,7 +17,8 @@ const materialcompnents =[
   MatTableModule,
   MatIconModule,
   MatButtonToggleModule,
-  MatGridListModule
+  MatGridListModule,
+  MatCardModule
 ]
 
 @NgModule({

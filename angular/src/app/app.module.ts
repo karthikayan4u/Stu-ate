@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +26,7 @@ import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
     AdmindashboardComponent,
     UserComponent,
     ResourceComponent,
+
   ],
   imports: [
     BrowserModule,
