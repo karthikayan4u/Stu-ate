@@ -1,14 +1,18 @@
 package com.example.controller;
 
-import com.example.exception.UserNotFoundException;
 import com.example.model.LoginModel;
 import com.example.model.UserModel;
+import com.example.repo.LoginRepository;
+import com.example.repo.UserRepository;
 import com.example.service.LoginService;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.math.BigInteger; 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest; 
+import java.security.NoSuchAlgorithmException; 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +22,42 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController {
     private final LoginService loginService;
+    private final LoginRepository loginRepo;
+    private final UserRepository userRepo;
 
-    public LoginController(LoginService loginService) {
+    public LoginController(LoginService loginService, LoginRepository loginRepo, UserRepository userRepo) {
         this.loginService = loginService;
+        this.loginRepo = loginRepo;
+        this.userRepo = userRepo;
     }
 
-    private BCryptPasswordEncoder passwordEncoder;
+    public static byte[] getSHA(String input) throws NoSuchAlgorithmException
+    { 
+        // Static getInstance method is called with hashing SHA 
+        MessageDigest md = MessageDigest.getInstance("SHA-256"); 
+  
+        // digest() method called 
+        // to calculate message digest of an input 
+        // and return array of byte
+        return md.digest(input.getBytes(StandardCharsets.UTF_8)); 
+    }
+    
+    public static String toHexString(byte[] hash)
+    {
+        // Convert byte array into signum representation 
+        BigInteger number = new BigInteger(1, hash); 
+  
+        // Convert message digest into hex value 
+        StringBuilder hexString = new StringBuilder(number.toString(16)); 
+  
+        // Pad with leading zeros
+        while (hexString.length() < 32) 
+        { 
+            hexString.insert(0, '0'); 
+        } 
+  
+        return hexString.toString(); 
+    }
 
     @PostMapping("/")
     public ResponseEntity<Boolean> checkUser(@RequestBody LoginModel data){
@@ -31,16 +65,22 @@ public class LoginController {
         if(user != null){
             String userpass, loginpass;
             userpass = user.getPassword();
-            loginpass = passwordEncoder.encode(data.getPassword());
-            if(userpass.equals(loginpass)){
-                return new ResponseEntity<>(true, HttpStatus.OK);
+            user.setActive(true);
+            try {
+                loginpass = toHexString(getSHA(data.getPassword()));
+                if(userpass.equals(loginpass)){
+                    data.setPassword("adminuser");
+                    loginRepo.save(data);
+                    userRepo.save(user);
+                    System.out.println("\n\nLOGIN\n\n");
+                    System.out.println(loginRepo.findByPassword("adminuser"));
+                    return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+                }
             }
-            else{
-                throw new UserNotFoundException("Invalid Credentials");
+            catch (NoSuchAlgorithmException e) {
             }
-        }else{
-            throw new UserNotFoundException("User not exist with email : "+ data.getEmail());
-            
         }
+        return new ResponseEntity<Boolean>(false, HttpStatus.CONFLICT);
     }
+
 }

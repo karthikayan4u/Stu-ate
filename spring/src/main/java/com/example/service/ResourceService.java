@@ -2,10 +2,14 @@ package com.example.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.example.exception.UserNotFoundException;
 
 import com.example.model.ResourceModel;
+import com.example.model.UserModel;
+import com.example.repo.LoginRepository;
 import com.example.repo.ResourceRepo;
+import com.example.repo.UserRepository;
 
 import javax.transaction.Transactional;
 
@@ -18,24 +22,43 @@ import java.util.List;
 @Transactional
 public class ResourceService {
     private final ResourceRepo resourceRepo;
+    private final UserRepository userRepo;
+    private final LoginRepository loginRepo;
 
     @Autowired
-    public ResourceService(ResourceRepo resourceRepo){
+    public ResourceService(ResourceRepo resourceRepo,UserRepository userRepo, LoginRepository loginRepo){
         this.resourceRepo = resourceRepo;
+        this.userRepo = userRepo;
+        this.loginRepo = loginRepo;
     }
+
+    private String getEmail() {
+        return loginRepo.findByPassword("adminuser").getEmail();
+      }
     
     public ResourceModel addresource(ResourceModel resource){
         Date date = new Date();
+        UserModel ret = userRepo.findByEmail(getEmail());
         resource.setCreatedOn(date);
-        resource.setCreatedBy("kk");
+        resource.setVerified(false);
+        resource.setActive(userRepo.findByEmail(resource.getCreatedBy().getEmail()).getActive());
+        resource.setCreatedBy(ret);
         return resourceRepo.save(resource);
     }
 
     public List<ResourceModel> findAllresources(){
+        List<ResourceModel> resourceall = resourceRepo.findAll();
+        for(var res: resourceall){
+            res.setActive(userRepo.findByEmail(res.getCreatedBy().getEmail()).getActive());
+            resourceRepo.save(res);
+        }
         return resourceRepo.findAll();
     }
 
     public ResourceModel updateresource(ResourceModel resource){
+        UserModel ret = userRepo.findByEmail(getEmail());
+        resource.setActive(userRepo.findByEmail(resource.getCreatedBy().getEmail()).getActive());
+        resource.setCreatedBy(ret);
         return resourceRepo.save(resource);
     }
 
@@ -46,6 +69,10 @@ public class ResourceService {
 
     public void deleteResource(String resourceId){ 
         resourceRepo.deleteResourceByResourceId(resourceId);
+    }
+
+    public UserModel finduser() {
+        return userRepo.findByEmail(getEmail());
     }
     
 }

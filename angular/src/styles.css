@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-<<<<<<< HEAD
 @import 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css';
 @import 'https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css';
 .card {
@@ -31,10 +30,5 @@ h1, h2, h3, h4, h5, h6 {
 a {
     color: #707070;
 }
-=======
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
->>>>>>> 7d393c768cf736c3f1ab84f1ef9db963eff55e80

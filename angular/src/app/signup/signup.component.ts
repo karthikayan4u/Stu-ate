@@ -3,6 +3,7 @@ import { Signup } from './signup';
 import { SignupService } from './signup.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +13,8 @@ import { NgForm } from '@angular/forms';
 
 export class SignupComponent implements OnInit {
 
-  constructor(private signupService: SignupService) { }
+  constructor(private signupService: SignupService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -22,11 +24,16 @@ export class SignupComponent implements OnInit {
     document.getElementById('add-signup-form')?.click(); 
     this.signupService.addUser(addForm.value).subscribe(
       (response: Signup) => {
-        console.log(response);
         addForm.reset();
+        if((response.password === 'admin') && (response.email === 'admin@email.com')){
+          this.router.navigate(['/admindashboard']);
+        }
+        else{
+          this.router.navigate(['/resource']);
+        }
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert("User E-mail already exists!");
         addForm.reset();
       }
     );

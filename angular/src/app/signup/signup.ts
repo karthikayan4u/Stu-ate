@@ -3,8 +3,7 @@ export interface Signup{
     password: string;
     username: string;
     mobileNumber: string;
-    qualification: object;
-    createdBy: string;
+    qualification: string;
     role: string;
     active: boolean;
 }

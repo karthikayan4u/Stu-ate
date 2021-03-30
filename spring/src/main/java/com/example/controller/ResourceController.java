@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.model.ResourceModel;
+import com.example.model.UserModel;
 import com.example.service.ResourceService;
 
 import java.util.List;
@@ -22,6 +23,12 @@ public class ResourceController {
     public ResponseEntity<List<ResourceModel>> getResource(){
         List<ResourceModel> resources = resourceService.findAllresources();
         return new ResponseEntity<>(resources, HttpStatus.OK);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<UserModel> getUser(){
+        UserModel user = resourceService.finduser();
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
 	@GetMapping("/find/{resourceId}")

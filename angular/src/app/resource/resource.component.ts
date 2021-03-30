@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Resource } from './resource';
+import { Resource, User } from './resource';
 import { ResourceService } from './resource.service';
 
 @Component({
@@ -13,11 +13,25 @@ export class ResourceComponent implements OnInit {
   public resources: Resource[] = [];
   public editResource!: Resource;
   public deleteResource!: Resource;
+  public user!: User;
   
   constructor(private resourceService: ResourceService){}
   
   ngOnInit(){
     this.getResources();
+    this.getUser();
+  }
+
+  public getUser(): void {
+    this.resourceService.getUser().subscribe(
+      (response: User) => {
+        this.user = response;
+        console.log(this.user);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
   
   public getResources(): void {

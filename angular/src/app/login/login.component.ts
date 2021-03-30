@@ -3,6 +3,7 @@ import { Login } from './login';
 import { LoginService } from './login.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -10,30 +11,27 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  email!:String;
-  password!:String;
-  allow!:boolean;
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
-
-  /*loginadmin(name:string,password:string){
-  if(name=="admin" && password=='admin'){
-          this.allow=true
-  }
-  }*/
 
   //add resource form
   public onCheckUser(addForm: NgForm): void{
     document.getElementById('add-login-form')?.click(); 
     this.loginService.checkUser(addForm.value).subscribe(
       (response: Login) => {
-        console.log(response);
         addForm.reset();
+        if((response.password === 'admin') && (response.email === 'admin@email.com')){
+          this.router.navigate(['/admindashboard']);
+        }
+        else{
+          this.router.navigate(['/resource']);
+        }
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert("Invalid Credentials");
         addForm.reset();
       }
     );

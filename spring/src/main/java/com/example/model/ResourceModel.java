@@ -21,7 +21,8 @@ public class ResourceModel implements Serializable {
     private String resourceLink;
     private String resourceCategory;
     private Date createdOn;
-    private String createdBy;
+    @Column(length = 1000)
+    private UserModel createdBy;
     private Boolean verified;
     private Boolean active;
     @Column(length = 1000)
@@ -30,7 +31,7 @@ public class ResourceModel implements Serializable {
     public ResourceModel() {} // very important
 
     //contructor
-    public ResourceModel(String resourceName, String resourceLink , String resourceCategory, Date createdOn, String createdBy, Boolean verified, Boolean active, String imageUrl) {
+    public ResourceModel(String resourceName, String resourceLink , String resourceCategory, Date createdOn, UserModel createdBy, Boolean verified, Boolean active, String imageUrl) {
         this.resourceName = resourceName;
         this.resourceLink = resourceLink;
         this.resourceCategory = resourceCategory;
@@ -92,11 +93,11 @@ public class ResourceModel implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public String getCreatedBy(){
+    public UserModel getCreatedBy(){
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy){
+    public void setCreatedBy(UserModel createdBy){
         this.createdBy = createdBy;
     }
 

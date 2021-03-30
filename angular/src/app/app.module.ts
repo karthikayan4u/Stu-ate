@@ -1,26 +1,4 @@
-<<<<<<< HEAD
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
-import { ResourceService } from './resource.service';
-
-@NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-  ],
-  providers: [ResourceService],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-=======
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +14,8 @@ import { ResourceComponent } from './resource/resource.component';
 import { ResourceService } from './resource/resource.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
+import {  PdfViewerModule  } from  'ng2-pdf-viewer';
+import { LogoutComponent } from './logout/logout.component';
 
 
 @NgModule({
@@ -48,6 +27,7 @@ import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
     AdmindashboardComponent,
     UserComponent,
     ResourceComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,8 +39,7 @@ import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
     FormsModule,
     PdfViewerModule
   ],
-  providers: [ResourceService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
->>>>>>> 7d393c768cf736c3f1ab84f1ef9db963eff55e80
