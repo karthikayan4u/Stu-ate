@@ -2,9 +2,9 @@
     <div>E-Learning</div>
     <div>
       <a>Welcome {{ user?.username }}!</a>
-        <button *ngIf="user?.role === ''" mat-button><a routerLink="/admindashboard" routerLinkActive=true>Home</a></button>
-        <button mat-button><a routerLink="/resource" routerLinkActive=true>Course</a></button>
-        <button mat-button><a routerLink="/login" routerLinkActive=true>Logout</a></button>
+        <button *ngIf="user && user?.role === 'admin'" mat-button><a routerLink="/admindashboard" routerLinkActive=true>Home</a></button>
+        <button *ngIf="user" mat-button><a routerLink="/resource" routerLinkActive=true>Course</a></button>
+        <button *ngIf="user" mat-button><a routerLink="/logout" routerLinkActive=true>Logout</a></button>
 </div>
 </mat-toolbar>
   <div class="row">

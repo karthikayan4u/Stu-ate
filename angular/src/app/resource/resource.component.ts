@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Resource, User } from './resource';
 import { ResourceService } from './resource.service';
 
@@ -15,7 +16,7 @@ export class ResourceComponent implements OnInit {
   public deleteResource!: Resource;
   public user!: User;
   
-  constructor(private resourceService: ResourceService){}
+  constructor(private resourceService: ResourceService, private router: Router){}
   
   ngOnInit(){
     this.getResources();
@@ -29,7 +30,8 @@ export class ResourceComponent implements OnInit {
         console.log(this.user);
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert("Please Login/Signup to explore");
+        this.router.navigate(['/login']);
       }
     );
   }

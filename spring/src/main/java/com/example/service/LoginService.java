@@ -22,7 +22,11 @@ public class LoginService {
     }
 
     public UserModel findByUserEmail(String email){
-        loginRepo.deleteByPassword("adminuser");
         return userRepo.findByEmail(email);
     }
+
+    public void deleteSession(){ 
+        loginRepo.deleteByPassword("adminuser");
+    }
+    
 }
