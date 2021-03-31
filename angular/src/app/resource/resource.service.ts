@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Resource } from './resource';
+import { Resource, User } from './resource';
 import { HttpClient } from '@angular/common/http'; 
 import { environment } from 'src/environments/environment';
 
@@ -11,6 +11,11 @@ export class ResourceService {
 
   private apiServerUrl = environment.apiBaseUrl;
     constructor(private http: HttpClient){}
+
+
+    public getUser(): Observable<User> {
+        return this.http.get<User>(`${this.apiServerUrl}/home/user`);
+    }
 
     public getResources(): Observable<Resource[]> {
         return this.http.get<Resource[]>(`${this.apiServerUrl}/home/`);

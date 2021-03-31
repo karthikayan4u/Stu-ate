@@ -1,13 +1,17 @@
-<mat-toolbar  color="warn" class="navbar">
+<mat-toolbar  style="background-color: #2ba7a1;" class="navbar">
     <div>E-Learning</div>
     <div>
-        <button mat-button><a routerLink="/admindashboard" routerLinkActive=true>Home</a></button>
-        <button mat-button><a routerLink="/resource" routerLinkActive=true>Course</a></button>
-        <button mat-button><a routerLink="/login" routerLinkActive=true>Logout</a></button>
+      <a style="color: white;">Welcome {{ user?.username }}!</a>
+      <mat-button-toggle-group>
+         <mat-button-toggle *ngIf="user?.role === ''"><a routerLink="/admindashboard" routerLinkActive=true style="text-decoration: none; color: black;">Home</a></mat-button-toggle>
+         <mat-button-toggle><a routerLink="/resource" routerLinkActive=true style="text-decoration: none; color: black;">Course</a></mat-button-toggle>
+         <mat-button-toggle><a routerLink="/login" routerLinkActive=true style="text-decoration: none; color: black;">Logout</a></mat-button-toggle>
+      </mat-button-toggle-group>
+        
 </div>
 </mat-toolbar>
   <div class="row">
-      <div class="col-6" style="text-align: end;"><ul class="navbar-nav mr-auto">
+      <div *ngIf="user?.role === 'professor'" col-6 style="text-align: end;"><ul class="navbar-nav mr-auto">
         <li class="nav-item active">
            <a class="nav-link" (click)="onOpenModal(resources[0], 'add')">Add Resource <span class="sr-only">(current)</span></a>
         </li>
@@ -32,7 +36,7 @@
           </div>
           <ul class="list-group list-group-flush">
              <li class="list-group-item">Created On: {{resource?.createdOn}}</li>
-             <li class="list-group-item">Created By: {{resource?.createdBy}}</li>
+             <li class="list-group-item">Created By: {{resource?.createdBy?.username}}</li>
              <li class="list-group-item">Verified: {{resource?.verified}}</li>
              <li class="list-group-item">Active: {{resource?.active}}</li>
           </ul>
@@ -48,7 +52,7 @@
   </div>
   
   <!-- Add Resource Modal -->
-  <div class="modal fade" id="addResourceModal" tabindex="-1" role="dialog" aria-labelledby="addResourceModalLabel" aria-hidden="true">
+  <div *ngIf="user?.role === 'professor'" class="modal fade" id="addResourceModal" tabindex="-1" role="dialog" aria-labelledby="addResourceModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
          <div class="modal-header">
@@ -77,7 +81,7 @@
             </div>
             <div class="modal-footer">
                <button type="button" id="add-resource-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Add Resource</button>
             </div>
             </form>
          </div>
@@ -86,7 +90,7 @@
     </div>
   
   <!-- Edit Modal -->
-  <div class="modal fade" id="updateResourceModal" tabindex="-1" role="dialog" aria-labelledby="resourceEditModalLabel" aria-hidden="true">
+  <div *ngIf="user?.role === 'professor'" class="modal fade" id="updateResourceModal" tabindex="-1" role="dialog" aria-labelledby="resourceEditModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
        <div class="modal-content">
           <div class="modal-header">
@@ -103,9 +107,7 @@
                 </div>
                 <input type="hidden" ngModel="{{editResource?.resourceId}}" name="resourceId" class="form-control" id="resourceId" placeholder="Email">
                 <input type="hidden" ngModel="{{editResource?.createdOn}}" name="createdOn" class="form-control" id="createdOn" placeholder="Email">
-                <input type="hidden" ngModel="{{editResource?.createdBy}}" name="createdBy" class="form-control" id="createdBy" placeholder="Email">
                 <input type="hidden" ngModel="{{editResource?.verified}}" name="verified" class="form-control" id="verified" placeholder="Email">
-                <input type="hidden" ngModel="{{editResource?.active}}" name="active" class="form-control" id="active" placeholder="Email">
                 
                 <div class="form-group">
                    <label for="resourceLink">Link</label>
@@ -130,7 +132,7 @@
   </div>
   
   <!-- Delete Modal -->
-  <div class="modal fade" id="deleteResourceModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div *ngIf="user?.role === 'professor' || user?.role === 'admin'" class="modal fade" id="deleteResourceModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
        <div class="modal-content">
           <div class="modal-header">

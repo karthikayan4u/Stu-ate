@@ -1,9 +1,12 @@
-<mat-toolbar  color="warn" class="navbar">
-    <div>E-Learning</div>
+<mat-toolbar  style="background-color: #2ba7a1;" class="navbar">
+    <div style="color: white;">E-Learning</div>
     <div>
-        <button mat-button><a routerLink="/admindashboard" routerLinkActive=true>Home</a></button>
-        <button mat-button><a routerLink="/resource" routerLinkActive=true>Course</a></button>
-        <button mat-button><a routerLink="/login" routerLinkActive=true>Logout</a></button>
+      <mat-button-toggle-group >
+        <mat-button-toggle ><a routerLink="/admindashboard" routerLinkActive=true style="text-decoration: none; color: black;">Home</a></mat-button-toggle>
+        <mat-button-toggle ><a routerLink="/resource" routerLinkActive=true style="text-decoration: none; color: black;">Course</a></mat-button-toggle>
+        <mat-button-toggle ><a routerLink="/login" routerLinkActive=true style="text-decoration: none; color: black;">Logout</a></mat-button-toggle>
+      </mat-button-toggle-group>
+        
 </div>
 </mat-toolbar>
 
@@ -14,8 +17,9 @@
       </mat-form-field>
       <mat-icon>search</mat-icon>
 </div>
+
 <mat-grid-list cols="3" style="text-align: center;">
-  <mat-grid-tile colspan="2">
+<mat-grid-tile colspan="2">
     <div class='table'>
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- S no Column -->
@@ -47,32 +51,32 @@
     </mat-table>
     </div></mat-grid-tile>
   <mat-grid-tile colspan="1">
-  <div class=full>
+  <div class='full'>
     <div class="log">
       <div class=mat-title>Edit details</div>
 </div>
   <div class=mail>
-    <mat-form-field floatLabel=never appearance='outline' color='warn'>
+    <mat-form-field floatLabel=never appearance='outline'>
     <mat-label>Enter email</mat-label>
       <input matInput type="email" autocomplete="off">
   </mat-form-field>
   </div>
 <div class=mail>
-    <mat-form-field floatLabel=never appearance='outline' color='warn'>
+    <mat-form-field floatLabel=never appearance='outline'>
     <mat-label>Enter Username</mat-label>
         <input matInput type="text" autocomplete="off">
     </mat-form-field>
 </div>
 <div class=mail>
-    <mat-form-field floatLabel=never appearance='outline' color='warn'>
+    <mat-form-field floatLabel=never appearance='outline'>
         <mat-label>Enter Mobilenumber</mat-label>
         <input matInput type="number" autocomplete="off">
     </mat-form-field>
 </div>
 <div class=mail>
-    <mat-form-field appearance='outline' color='warn'>
+    <mat-form-field appearance='outline'>
         <mat-label>Enter Password</mat-label>
-        <input matInput type="password">
+        <input matInput type="password" autocomplete="off">
     </mat-form-field>
 </div>
   <div class=login>

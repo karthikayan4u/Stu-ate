@@ -8,6 +8,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 const materialcompnents =[
   MatButtonModule,
@@ -18,7 +19,8 @@ const materialcompnents =[
   MatIconModule,
   MatButtonToggleModule,
   MatGridListModule,
-  MatCardModule
+  MatCardModule,
+  ScrollingModule
 ]
 
 @NgModule({

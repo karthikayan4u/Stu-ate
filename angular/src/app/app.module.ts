@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,7 +14,8 @@ import { ResourceComponent } from './resource/resource.component';
 import { ResourceService } from './resource/resource.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
+import {  PdfViewerModule  } from  'ng2-pdf-viewer';
+import { LogoutComponent } from './logout/logout.component';
 
 
 
@@ -26,7 +28,6 @@ import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
     AdmindashboardComponent,
     UserComponent,
     ResourceComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -38,7 +39,7 @@ import  {  PdfViewerModule  }  from  'ng2-pdf-viewer';
     FormsModule,
     PdfViewerModule
   ],
-  providers: [ResourceService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
