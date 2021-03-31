@@ -6,6 +6,7 @@ export interface User{
     qualification: string;
     role: string;
     active: boolean;
+    verify: boolean;
 }
 export interface Resource{
     resourceId: string;

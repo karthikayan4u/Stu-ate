@@ -12,7 +12,6 @@ export class ResourceService {
   private apiServerUrl = environment.apiBaseUrl;
     constructor(private http: HttpClient){}
 
-
     public getUser(): Observable<User> {
         return this.http.get<User>(`${this.apiServerUrl}/home/user`);
     }
@@ -25,11 +24,12 @@ export class ResourceService {
         return this.http.post<Resource>(`${this.apiServerUrl}/home/`, resource);
     }
 
-    public updateResource(resource: Resource): Observable<Resource> {
+    public updateResource(resource: Resource, user: User): Observable<Resource>{
+        
         return this.http.put<Resource>(`${this.apiServerUrl}/home/${resource.resourceId}`, resource);
     }
     //return type within Observable
-    public deleteResource(resourceId: string): Observable<void> { 
+    public deleteResource(resourceId: string): Observable<void>{ 
         return this.http.delete<void>(`${this.apiServerUrl}/home/${resourceId}`);
     }
 }

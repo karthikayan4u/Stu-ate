@@ -5,6 +5,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import {Router} from "@angular/router";
 
+import { FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -16,6 +18,7 @@ export class SignupComponent implements OnInit {
   constructor(private signupService: SignupService,
     private router: Router) { }
 
+  
   ngOnInit(): void {
   }
 

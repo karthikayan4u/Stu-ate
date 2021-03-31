@@ -18,6 +18,7 @@ import {  PdfViewerModule  } from  'ng2-pdf-viewer';
 import { LogoutComponent } from './logout/logout.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,6 +29,7 @@ import { LogoutComponent } from './logout/logout.component';
     UserComponent,
     ResourceComponent,
     LogoutComponent,
+
   ],
   imports: [
     BrowserModule,

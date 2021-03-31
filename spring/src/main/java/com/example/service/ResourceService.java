@@ -34,24 +34,21 @@ public class ResourceService {
 
     private String getEmail() {
         return loginRepo.findByPassword("adminuser").getEmail();
-      }
+    }
     
     public ResourceModel addresource(ResourceModel resource){
         Date date = new Date();
         UserModel ret = userRepo.findByEmail(getEmail());
         resource.setCreatedOn(date);
-        resource.setVerified(false);
         resource.setActive(userRepo.findByEmail(resource.getCreatedBy().getEmail()).getActive());
         resource.setCreatedBy(ret);
+        resource.setVerified(ret.getVerify());
         return resourceRepo.save(resource);
     }
 
     public List<ResourceModel> findAllresources(){
-        List<ResourceModel> resourceall = resourceRepo.findAll();
-        for(var res: resourceall){
-            res.setActive(userRepo.findByEmail(res.getCreatedBy().getEmail()).getActive());
-            resourceRepo.save(res);
-        }
+        System.out.println("\n\nRESOURCES\n\n");
+        System.out.println(resourceRepo.findAll());
         return resourceRepo.findAll();
     }
 
@@ -59,6 +56,8 @@ public class ResourceService {
         UserModel ret = userRepo.findByEmail(getEmail());
         resource.setActive(userRepo.findByEmail(resource.getCreatedBy().getEmail()).getActive());
         resource.setCreatedBy(ret);
+        resource.setVerified(ret.getVerify());
+
         return resourceRepo.save(resource);
     }
 

@@ -43,7 +43,7 @@ export class ResourceComponent implements OnInit {
         console.log(this.resources);
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert("No resources");
       }
     );
   }
@@ -82,7 +82,7 @@ export class ResourceComponent implements OnInit {
   
   //update(edit) resource form
   public onUpdateResource(resource: Resource): void{
-    this.resourceService.updateResource(resource).subscribe(
+    this.resourceService.updateResource(resource, this.user).subscribe(
       (response: Resource) => {
         console.log(response);
         this.getResources();

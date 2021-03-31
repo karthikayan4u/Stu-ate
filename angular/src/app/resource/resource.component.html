@@ -7,6 +7,7 @@
         <button *ngIf="user" mat-button><a routerLink="/logout" routerLinkActive=true>Logout</a></button>
 </div>
 </mat-toolbar>
+
   <div class="row">
       <div *ngIf="user?.role === 'professor'" col-6 style="text-align: end;"><ul class="navbar-nav mr-auto">
         <li class="nav-item active">
@@ -29,18 +30,25 @@
              <div class="col-6 card-title align-self-center mb-0">
                 <h5>{{resource?.resourceName}}</h5>
                 <p class="m-0">{{resource?.resourceCategory}}</p>
+                <div class="float-right btn-group btn-group-sm">
+                  <mat-icon *ngIf="resource?.verified">verified_user</mat-icon>
+                  <mat-icon *ngIf="!resource?.verified">watch_later</mat-icon>
+               </div>
              </div>
           </div>
           <ul class="list-group list-group-flush">
              <li class="list-group-item">Created On: {{resource?.createdOn}}</li>
              <li class="list-group-item">Created By: {{resource?.createdBy?.username}}</li>
-             <li class="list-group-item">Verified: {{resource?.verified}}</li>
-             <li class="list-group-item">Active: {{resource?.active}}</li>
           </ul>
           <div class="card-body">
+            <div class="float-left btn-group btn-group-sm">
+               <mat-icon *ngIf="resource?.active">visibility</mat-icon>
+               <mat-icon *ngIf="!resource?.active">visibility_off</mat-icon>
+            </div>
              <div class="float-right btn-group btn-group-sm">
-                <a *ngIf="user?.role === 'professor'" (click)="onOpenModal(resource, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
-                <a *ngIf="user?.role === 'professor' || user?.role === 'admin'" (click)="onOpenModal(resource, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                <a *ngIf="user?.role === 'professor' || user?.role === 'admin'" (click)="onOpenModal(resource, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                <a *ngIf="user?.role === 'professor'" (click)="onOpenModal(resource, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                
              </div>
           </div>
        </div>
@@ -86,7 +94,7 @@
     </div>
   
   <!-- Edit Modal -->
-  <div *ngIf="user?.role === 'professor'" class="modal fade" id="updateResourceModal" tabindex="-1" role="dialog" aria-labelledby="resourceEditModalLabel" aria-hidden="true">
+  <div *ngIf="user?.role === 'professor' || user?.role === 'admin'" class="modal fade" id="updateResourceModal" tabindex="-1" role="dialog" aria-labelledby="resourceEditModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
        <div class="modal-content">
           <div class="modal-header">
@@ -103,7 +111,6 @@
                 </div>
                 <input type="hidden" ngModel="{{editResource?.resourceId}}" name="resourceId" class="form-control" id="resourceId" placeholder="Email">
                 <input type="hidden" ngModel="{{editResource?.createdOn}}" name="createdOn" class="form-control" id="createdOn" placeholder="Email">
-                <input type="hidden" ngModel="{{editResource?.verified}}" name="verified" class="form-control" id="verified" placeholder="Email">
                 
                 <div class="form-group">
                    <label for="resourceLink">Link</label>
@@ -128,7 +135,7 @@
   </div>
   
   <!-- Delete Modal -->
-  <div *ngIf="user?.role === 'professor' || user?.role === 'admin'" class="modal fade" id="deleteResourceModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+  <div *ngIf="user?.role === 'professor'" class="modal fade" id="deleteResourceModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
        <div class="modal-content">
           <div class="modal-header">

@@ -10,7 +10,7 @@
     <div class=mail>
       <mat-form-field floatLabel=never appearance='outline' color='warn'>
       <mat-label>Enter email</mat-label>
-        <input matInput type="text" ngModel name="email" class="form-control" id="email" placeholder="E-mail" required>
+        <input matInput type="email" autocomplete="off" ngModel name="email" class="form-control" id="email" placeholder="E-mail" required>
     </mat-form-field>
     </div>
   <div class=mail>
@@ -28,13 +28,14 @@
   <div class=mail>
       <mat-form-field appearance='outline' color='warn'>
           <mat-label>Enter Password</mat-label>
-          <input matInput type="password">
+          <input matInput type="password" autocomplete="off">
       </mat-form-field>
   </div>
   <div class=mail>
       <mat-form-field floatLabel=never appearance='outline' color='warn'>
       <mat-label>Confirm password</mat-label>
-        <input matInput type="text" ngModel name="password" class="form-control" id="password" placeholder="Password" required>
+        <input matInput type="password" ngModel name="password" class="form-control" id="password" placeholder="Password" required autocomplete="off">
+        
     </mat-form-field>
   </div>
   <div class=mail>
@@ -50,8 +51,8 @@
     </mat-form-field>
   </div>
     <div class=login>
-      <button mat-raised-button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Signup
-        </button>
+      <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Signup</button>
+      
     </div>
     <div class=sign>
       <div>Already a User?<button type="button" id="add-signup-form" class="btn btn-secondary" data-dismiss="modal" disableRipple mat-button><a class="anchor" routerLink="/login" routerLinkActive=true>Login</a></button>

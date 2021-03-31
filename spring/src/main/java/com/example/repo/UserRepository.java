@@ -8,5 +8,5 @@ public interface UserRepository extends JpaRepository<UserModel, String> {
 
     UserModel findByEmail(String email);
     UserModel findByUsername(String username);
-    
+    void deleteUserByEmail(String email); //query method
 }

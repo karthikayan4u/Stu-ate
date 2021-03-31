@@ -1,86 +1,109 @@
 <mat-toolbar  color="warn" class="navbar">
     <div>E-Learning</div>
     <div>
+      <a>Welcome Admin!</a>
         <button mat-button><a routerLink="/admindashboard" routerLinkActive=true>Home</a></button>
         <button mat-button><a routerLink="/resource" routerLinkActive=true>Course</a></button>
         <button mat-button><a routerLink="/login" routerLinkActive=true>Logout</a></button>
 </div>
 </mat-toolbar>
 
-<div class="search">
-    <mat-form-field appearance=outline>
-        <mat-label>Type here to search</mat-label>
-        <input matInput (keyup)="applyFilter($event)" #input>
-      </mat-form-field>
-      <mat-icon>search</mat-icon>
-</div>
-<mat-grid-list cols="3" style="text-align: center;">
-  <mat-grid-tile colspan="2">
-    <div class='table'>
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <!-- S no Column -->
-      <ng-container matColumnDef="position">
-        <mat-header-cell *matHeaderCellDef> S No </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
-      </ng-container>
-    
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-      </ng-container>
-    
-      <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
-      </ng-container>
-    
-      <!-- Option Column -->
-      <ng-container matColumnDef="symbol">
-        <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
-        <mat-cell *matCellDef="let element"><button mat-raised-button><mat-icon>edit</mat-icon></button><button mat-raised-button><mat-icon>delete</mat-icon></button></mat-cell>
-      </ng-container>
-    
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-    </div></mat-grid-tile>
-  <mat-grid-tile colspan="1">
-  <div class=full>
-    <div class="log">
-      <div class=mat-title>Edit details</div>
-</div>
-  <div class=mail>
-    <mat-form-field floatLabel=never appearance='outline' color='warn'>
-    <mat-label>Enter email</mat-label>
-      <input matInput>
-  </mat-form-field>
-  </div>
-<div class=mail>
-    <mat-form-field floatLabel=never appearance='outline' color='warn'>
-    <mat-label>Enter Username</mat-label>
-        <input matInput>
-    </mat-form-field>
-</div>
-<div class=mail>
-    <mat-form-field floatLabel=never appearance='outline' color='warn'>
-        <mat-label>Enter Mobilenumber</mat-label>
-        <input matInput>
-    </mat-form-field>
-</div>
-<div class=mail>
-    <mat-form-field appearance='outline' color='warn'>
-        <mat-label>Enter Password</mat-label>
-        <input matInput>
-    </mat-form-field>
-</div>
-  <div class=login>
-    <button mat-raised-button>Update
-      </button>
-  </div>
-</div>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="col-6" style="padding:0 0%;"> <form class="form-inline my-2 my-lg-0">
+  <input type="search" (ngModelChange)="searchUsers(key.value)" #key="ngModel" ngModel
+   name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search users..." required>
+</form></div>
 
 
+<div class="container" id="main-container">
+  <div class="row">
+    <div *ngFor="let user of users" class="col-md-6 col-xl-3">
+       <div class="card m-b-30">
+          <div class="card-body row">
+             <div class="col-6 card-title align-self-center mb-0">
+                <h5>{{user?.username}}{{user?.verify}} <mat-icon *ngIf="user?.verify">verified_user</mat-icon>
+                  <mat-icon *ngIf="!user?.verify">watch_later</mat-icon></h5>
+             </div>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Qualification: {{user?.qualification}}</li>
+             <li class="list-group-item">Role: {{user?.role}}</li>
+             <li class="list-group-item">E-mail ID: {{user?.email}}</li>
+             <li class="list-group-item">Contact Number: {{user?.mobileNumber}}</li>
+             
+          </ul>
+          <div class="card-body">
+            <div class="float-left btn-group btn-group-sm">
+               <mat-icon *ngIf="user?.active">visibility</mat-icon>
+               <mat-icon *ngIf="!user?.active">visibility_off</mat-icon>
+            </div>
+             <div class="float-right btn-group btn-group-sm">
+                <a (click)="onOpenModal(user, 'verify')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Verify"><i class="fa fa-pencil"></i> </a>
+                <a (click)="onOpenModal(user, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+  
+  <!-- Edit Modal -->
+  <div class="modal fade" id="verifyUserModal" tabindex="-1" role="dialog" aria-labelledby="userVerifyModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="userVerifyModalLabel">Verify User {{verifyUser?.username}}</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <form #verifyForm="ngForm">
+                   <input type="hidden" ngModel="{{verifyUser?.username}}" name="username" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Name">
+                <input type="hidden" ngModel="{{verifyUser?.email}}" name="email" class="form-control" id="email" placeholder="Email">
+                <input type="hidden" ngModel="{{verifyUser?.password}}" name="password" class="form-control" id="password" placeholder="Email">
+                
+                   <input type="hidden" ngModel="{{verifyUser?.mobileNumber}}" name="mobileNumber" class="form-control" id="mobileNumber" placeholder="Link">
+                
+                   <input type="hidden" ngModel="{{verifyUser?.qualification}}" name="qualification" class="form-control" id="qualification" placeholder="Category">
+              
+                   <input type="hidden" ngModel="{{verifyUser?.role}}" name="role" class="form-control" id="imageUrl" placeholder="Image URL">
+                   <p>Are you sure you want to verify resource {{verifyUser?.username}}?</p>
+                <div class="modal-footer">
+                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                   <button (click)="onVerifyUser(verifyForm.value)" data-dismiss="modal" class="btn btn-primary">Verify User</button>
+                </div>
+             </form>
+          </div>
+       </div>
+    </div>
+  </div>
+  
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="deleteModelLabel">Delete User</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>Are you sure you want to delete resource {{deleteUser?.username}}?</p>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onDeleteUser(deleteUser.email)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+  </div>
+  
+  <!-- Notification for no resources -->
+  <div *ngIf="users?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+  <div class="alert alert-info" role="alert">
+    <h4 class="alert-heading">NO USERS!</h4>
+    <p>No users were found.</p>
+  </div>
+  </div>

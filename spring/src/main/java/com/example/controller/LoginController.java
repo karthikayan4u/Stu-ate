@@ -63,6 +63,8 @@ public class LoginController {
     @PostMapping("/")
     public ResponseEntity<Boolean> checkUser(@RequestBody LoginModel data){
         UserModel user = loginService.findByUserEmail(data.getEmail());
+        System.out.println("\n\nLOGIN\n\n");
+        System.out.println(user);
         if(user != null){
             String userpass, loginpass;
             userpass = user.getPassword();

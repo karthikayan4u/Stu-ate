@@ -4,18 +4,18 @@
   </mat-toolbar>
 <div class="row"> 
   <div class="main col-5" >
-    <div class="log"><div class=mat-title>Login</div>
+    <div class="log"><div class=mat-title><h1>Login</h1></div>
   </div>
   <form #addForm="ngForm" (ngSubmit)="onCheckUser(addForm)">
     <div class=mailpass>
       <mat-form-field appearance='outline' color='warn'>
       <mat-label>Enter email</mat-label>
-      <input type="text" ngModel name="email" class="form-control" id="email" placeholder="E-mail" required matInput>
+      <input type="email" ngModel name="email" class="form-control" id="email" placeholder="E-mail" required matInput>
     </mat-form-field>
     <div>
     <mat-form-field appearance='outline' color='warn'>
       <mat-label>Enter Password</mat-label>
-      <input type="text" ngModel name="password" class="form-control" id="password" placeholder="Password" required matInput>
+      <input type="password" ngModel name="password" class="form-control" id="password" placeholder="Password" required matInput autocomplete="off">
     </mat-form-field>
     </div>
     </div>
@@ -33,4 +33,5 @@
     <img src="assets\img\E_learning logo.jpg" alt="loading">
   </div>
 </div>
+
   

@@ -1,8 +1,6 @@
 package com.example.controller;
 
-import com.example.model.LoginModel;
 import com.example.model.UserModel;
-import com.example.repo.LoginRepository;
 import com.example.repo.UserRepository;
 import com.example.service.LoginService;
 
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/signup")
 public class SignupController {
     private final LoginService loginService;
-    private LoginModel data;
     
     public SignupController(LoginService loginService) {
         this.loginService = loginService;
@@ -56,24 +53,27 @@ public class SignupController {
 
     @Autowired
     private UserRepository userRepository;
-    private LoginRepository loginRepo;
     
 
     @PostMapping("")
     public ResponseEntity<Boolean> saveUser(@RequestBody UserModel user){
         //password encryption
         UserModel checkuser = loginService.findByUserEmail(user.getEmail());
+        System.out.println("\n\nLOGINc\n\n");
+        System.out.println(checkuser);
         if(checkuser == null){
             try {
                 user.setPassword(toHexString(getSHA(user.getPassword())));
                 user.setRole(user.getRole().toLowerCase());
                 user.setActive(true);
-                data.setEmail(user.getEmail());
-                data.setPassword("adminuser");
-                loginRepo.save(data);
+                if(user.getEmail() == "admin@email.com" && user.getPassword() == "admin"){
+                    user.setVerify(true);
+                }
+                user.setVerify(false);
+                userRepository.save(user);
             } catch (NoSuchAlgorithmException e) {
             }
-            userRepository.save(user);
+            
             return new ResponseEntity<Boolean>(true, HttpStatus.CREATED);
         }
         else{

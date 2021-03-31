@@ -16,11 +16,12 @@ public class UserModel implements Serializable {
     private String qualification;
     private String role;
     private Boolean active;
+    private Boolean verify;
     
     public UserModel() {} // very important
 
     //contructor
-    public UserModel(String username, String password, String email, String mobileNumber, String qualification, String role, Boolean active) {
+    public UserModel(String username, String password, String email, String mobileNumber, String qualification, String role, Boolean active, Boolean verify) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -28,6 +29,7 @@ public class UserModel implements Serializable {
         this.qualification = qualification;
         this.role = role;
         this.active = active;
+        this.verify = verify;
     }
     
     public String getUsername(){
@@ -89,6 +91,14 @@ public class UserModel implements Serializable {
         this.active = active;
     }
 
+    public Boolean getVerify(){
+        return verify;
+    }
+
+    public void setVerify(Boolean verify){
+        this.verify = verify;
+    }
+
     //Location of the object
     @Override
     public String toString(){
@@ -99,6 +109,7 @@ public class UserModel implements Serializable {
         ", mobileNumber='" + mobileNumber + '\''+
         ", role='" + role + '\''+
         ", active='" + active + '\''+
+        ", verify='" + verify + '\''+
         '}'; 
     }
     
