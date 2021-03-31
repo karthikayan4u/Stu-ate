@@ -7,57 +7,54 @@ import com.example.exception.UserNotFoundException;
 
 import com.example.model.ResourceModel;
 import com.example.model.UserModel;
-import com.example.repo.LoginRepository;
 import com.example.repo.ResourceRepo;
 import com.example.repo.UserRepository;
-
+import com.example.*;
 import javax.transaction.Transactional;
 
 import java.util.Date;
 import java.util.List;
-
-
 
 @Service
 @Transactional
 public class ResourceService {
     private final ResourceRepo resourceRepo;
     private final UserRepository userRepo;
-    private final LoginRepository loginRepo;
 
     @Autowired
-    public ResourceService(ResourceRepo resourceRepo,UserRepository userRepo, LoginRepository loginRepo){
+    public ResourceService(ResourceRepo resourceRepo,UserRepository userRepo){
         this.resourceRepo = resourceRepo;
         this.userRepo = userRepo;
-        this.loginRepo = loginRepo;
     }
 
     private String getEmail() {
-        return loginRepo.findByPassword("adminuser").getEmail();
+        return Application.CURRENT_USER;
     }
     
     public ResourceModel addresource(ResourceModel resource){
         Date date = new Date();
-        UserModel ret = userRepo.findByEmail(getEmail());
         resource.setCreatedOn(date);
+        resource.setCreatedBy(userRepo.findByEmail(getEmail()));
+        resource.setVerified(userRepo.findByEmail(resource.getCreatedBy().getEmail()).getVerify());
         resource.setActive(userRepo.findByEmail(resource.getCreatedBy().getEmail()).getActive());
-        resource.setCreatedBy(ret);
-        resource.setVerified(ret.getVerify());
         return resourceRepo.save(resource);
     }
 
     public List<ResourceModel> findAllresources(){
-        System.out.println("\n\nRESOURCES\n\n");
-        System.out.println(resourceRepo.findAll());
+        List<ResourceModel> resourceall = resourceRepo.findAll();
+        for(var res: resourceall){
+            res.setActive(userRepo.findByEmail(res.getCreatedBy().getEmail()).getActive());
+            res.setVerified(userRepo.findByEmail(res.getCreatedBy().getEmail()).getVerify());
+            resourceRepo.save(res);
+        }
         return resourceRepo.findAll();
     }
 
     public ResourceModel updateresource(ResourceModel resource){
-        UserModel ret = userRepo.findByEmail(getEmail());
+        ResourceModel ret = resourceRepo.findByResourceId(resource.getResourceId());
+        resource.setCreatedBy(ret.getCreatedBy());
+        resource.setVerified(ret.getVerified());
         resource.setActive(userRepo.findByEmail(resource.getCreatedBy().getEmail()).getActive());
-        resource.setCreatedBy(ret);
-        resource.setVerified(ret.getVerify());
-
         return resourceRepo.save(resource);
     }
 

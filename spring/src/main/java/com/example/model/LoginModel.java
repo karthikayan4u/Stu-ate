@@ -2,11 +2,8 @@ package com.example.model;
 
 import java.io.Serializable;
 
-import javax.persistence.*;
 
-@Entity
 public class LoginModel implements Serializable{
-    @Id
     private String email;
     private String password;
 
@@ -18,7 +15,6 @@ public class LoginModel implements Serializable{
         this.email=email;
         this.password=password;
     }
-
 
     public String getEmail()
     {

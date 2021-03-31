@@ -30,16 +30,31 @@ public class AdminService {
     }
 
     public UserModel verifyUser(UserModel user){
-        user.setVerify(true);
+        if(userRepo.findByEmail(user.getEmail()).getVerify()){
+            user.setVerify(false);
+        }
+        else{
+            user.setVerify(true);
+        }
+        
         user.setActive(userRepo.findByEmail(user.getEmail()).getActive());
         return userRepo.save(user);
     }
 
     public void deleteUser(String email){ 
+        List<ResourceModel> resourceall = resourceRepo.findAll();
+        for(var res: resourceall){
+            if(res.getCreatedBy().getEmail().equals(email)){
+                resourceRepo.deleteResourceByResourceId(res.getResourceId());
+            }
+        }
         userRepo.deleteUserByEmail(email);
     }
 
     public ResourceModel updateresource(ResourceModel resource){
+        ResourceModel ret = resourceRepo.findByResourceId(resource.getResourceId());
+        resource.setCreatedBy(ret.getCreatedBy());
+        resource.setVerified(ret.getVerified());
         resource.setActive(userRepo.findByEmail(resource.getCreatedBy().getEmail()).getActive());
         return resourceRepo.save(resource);
     }

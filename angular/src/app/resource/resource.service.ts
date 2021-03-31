@@ -25,7 +25,9 @@ export class ResourceService {
     }
 
     public updateResource(resource: Resource, user: User): Observable<Resource>{
-        
+        if(user.password === 'admin' && user.email === 'admin@email.com'){
+            return this.http.put<Resource>(`${this.apiServerUrl}/admin/resource/${resource.resourceId}`, resource);
+        }
         return this.http.put<Resource>(`${this.apiServerUrl}/home/${resource.resourceId}`, resource);
     }
     //return type within Observable

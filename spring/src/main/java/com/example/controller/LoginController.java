@@ -1,8 +1,8 @@
 package com.example.controller;
 
+import com.example.Application;
 import com.example.model.LoginModel;
 import com.example.model.UserModel;
-import com.example.repo.LoginRepository;
 import com.example.repo.UserRepository;
 import com.example.service.LoginService;
 
@@ -23,12 +23,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController {
     private final LoginService loginService;
-    private final LoginRepository loginRepo;
     private final UserRepository userRepo;
 
-    public LoginController(LoginService loginService, LoginRepository loginRepo, UserRepository userRepo) {
+    public LoginController(LoginService loginService, UserRepository userRepo) {
         this.loginService = loginService;
-        this.loginRepo = loginRepo;
         this.userRepo = userRepo;
     }
 
@@ -63,8 +61,6 @@ public class LoginController {
     @PostMapping("/")
     public ResponseEntity<Boolean> checkUser(@RequestBody LoginModel data){
         UserModel user = loginService.findByUserEmail(data.getEmail());
-        System.out.println("\n\nLOGIN\n\n");
-        System.out.println(user);
         if(user != null){
             String userpass, loginpass;
             userpass = user.getPassword();
@@ -72,11 +68,8 @@ public class LoginController {
             try {
                 loginpass = toHexString(getSHA(data.getPassword()));
                 if(userpass.equals(loginpass)){
-                    data.setPassword("adminuser");
-                    loginRepo.save(data);
+                    Application.CURRENT_USER = user.getEmail();
                     userRepo.save(user);
-                    System.out.println("\n\nLOGIN\n\n");
-                    System.out.println(loginRepo.findByPassword("adminuser"));
                     return new ResponseEntity<Boolean>(true, HttpStatus.OK);
                 }
             }
@@ -88,11 +81,9 @@ public class LoginController {
 
     @DeleteMapping("/delete")
     public ResponseEntity<?> resourceDelete(){
-        System.out.println("\n\nLOGOUT\n\n");
-        UserModel user = loginService.findByUserEmail(loginRepo.findByPassword("adminuser").getEmail());
+        UserModel user = loginService.findByUserEmail(Application.CURRENT_USER);
         user.setActive(false);
         userRepo.save(user);
-        System.out.println(loginRepo.findByPassword("adminuser"));
         loginService.deleteSession();
         return new ResponseEntity<>(HttpStatus.OK);
     }

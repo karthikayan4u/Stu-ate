@@ -20,7 +20,7 @@
        <div class="card m-b-30">
           <div class="card-body row">
              <div class="col-6 card-title align-self-center mb-0">
-                <h5>{{user?.username}}{{user?.verify}} <mat-icon *ngIf="user?.verify">verified_user</mat-icon>
+                <h5>{{user?.username}} <mat-icon *ngIf="user?.verify">verified_user</mat-icon>
                   <mat-icon *ngIf="!user?.verify">watch_later</mat-icon></h5>
              </div>
           </div>
@@ -67,10 +67,12 @@
                    <input type="hidden" ngModel="{{verifyUser?.qualification}}" name="qualification" class="form-control" id="qualification" placeholder="Category">
               
                    <input type="hidden" ngModel="{{verifyUser?.role}}" name="role" class="form-control" id="imageUrl" placeholder="Image URL">
-                   <p>Are you sure you want to verify resource {{verifyUser?.username}}?</p>
+                   <p *ngIf="!verifyUser?.verify">Are you sure you want to Verify resource {{verifyUser?.username}}?</p>
+                   <p *ngIf="verifyUser?.verify">Are you sure you want to Unverify resource {{verifyUser?.username}}?</p>
                 <div class="modal-footer">
                    <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
-                   <button (click)="onVerifyUser(verifyForm.value)" data-dismiss="modal" class="btn btn-primary">Verify User</button>
+                   <button *ngIf="!verifyUser?.verify" (click)="onVerifyUser(verifyForm.value)" data-dismiss="modal" class="btn btn-primary">Verify User</button>
+                   <button *ngIf="verifyUser?.verify" (click)="onVerifyUser(verifyForm.value)" data-dismiss="modal" class="btn btn-primary">Unverify User</button>
                 </div>
              </form>
           </div>

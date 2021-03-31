@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.Application;
 import com.example.model.UserModel;
 import com.example.repo.UserRepository;
 import com.example.service.LoginService;
@@ -66,10 +67,8 @@ public class SignupController {
                 user.setPassword(toHexString(getSHA(user.getPassword())));
                 user.setRole(user.getRole().toLowerCase());
                 user.setActive(true);
-                if(user.getEmail() == "admin@email.com" && user.getPassword() == "admin"){
-                    user.setVerify(true);
-                }
                 user.setVerify(false);
+                Application.CURRENT_USER = user.getEmail();
                 userRepository.save(user);
             } catch (NoSuchAlgorithmException e) {
             }
