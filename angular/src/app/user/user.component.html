@@ -1,7 +1,7 @@
-<mat-toolbar  color="warn" class="navbar">
-    <div>E-Learning</div>
+<mat-toolbar  style="background-color:#2ba7a1;" class="navbar">
+    <div style="color: rgb(255, 255, 255);">E-Learning</div>
     <div>
-        <button mat-button><a routerLink="/login" routerLinkActive=true>Logout</a></button>
+        <button mat-button style="background-color: rgb(255, 255, 255);"><a routerLink="/login" routerLinkActive=true style="background-color: rgb(255, 255, 255); text-decoration: none;">Logout</a></button>
 </div>
 </mat-toolbar>
 <div class="row">
@@ -11,13 +11,23 @@
     Video-URL:<button mat-button><a href="{{video}}"><h2>{{video}}</h2></a></button>
 </div>
 <div>
-    <iframe width="1000" height="600" src="https://carnegieendowment.org/files/CEIP_Khosla_Report_FNL_w_covers.pdf" style="margin-left: 2rem; margin-top: 2rem;"></iframe>
+    <iframe width="1000" height="500" src="https://carnegieendowment.org/files/CEIP_Khosla_Report_FNL_w_covers.pdf" style="margin-left: 2rem; margin-top: 1rem;"></iframe>
     <div class="pdf-url" style="text-align: center;">
        pdf-URL:<button mat-button><a href="{{pdf}}"><h2>{{pdf}}</h2></a></button>
     </div>
 </div>
     </div>
-    <div class="col-4">
-        #####chathere######
+    <div class="col-4" style="padding-top: 2%;">
+        <div class="chatbox">
+            <div class="messages">
+            <div *ngFor="let message of messages" [class.right]="message.self">
+             <strong><h3 style="padding-right: 1.5%;">{{message.text}}</h3></strong>
+            </div>
+            </div>
+            <div class="input-container">
+            <input type="text" class="inputtext" [(ngModel)]="replyMessage" style="width: 75%; height: 180%;">
+            <button mat-button class="replyBtn" (click)="reply()" style="background-color:#2ba7a1; margin-left: 2%;">Send</button>
+            </div>
+            </div>
     </div>
 </div>

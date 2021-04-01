@@ -1,10 +1,20 @@
-<mat-toolbar  color="warn" class="navbar">
+<mat-toolbar  style="background-color: #2ba7a1;" class="navbar">
     <div>E-Learning</div>
     <div>
+<<<<<<< HEAD
       <a>Welcome {{ user?.username }}!</a>
         <button *ngIf="user?.email === 'admin@email.com' && user?.password === 'admin'" mat-button><a routerLink="/admindashboard" routerLinkActive=true>Home</a></button>
         <button *ngIf="user" mat-button><a routerLink="/resource" routerLinkActive=true>Course</a></button>
         <button *ngIf="user" mat-button><a routerLink="/logout" routerLinkActive=true>Logout</a></button>
+=======
+      <a style="color: white;">Welcome {{ user?.username }}!</a>
+      <mat-button-toggle-group>
+         <mat-button-toggle *ngIf="user?.role === ''"><a routerLink="/admindashboard" routerLinkActive=true style="text-decoration: none; color: black;">Home</a></mat-button-toggle>
+         <mat-button-toggle><a routerLink="/resource" routerLinkActive=true style="text-decoration: none; color: black;">Course</a></mat-button-toggle>
+         <mat-button-toggle><a routerLink="/login" routerLinkActive=true style="text-decoration: none; color: black;">Logout</a></mat-button-toggle>
+      </mat-button-toggle-group>
+        
+>>>>>>> a2aa40e815b4cde2aa79158c29db0799ea29901e
 </div>
 </mat-toolbar>
 

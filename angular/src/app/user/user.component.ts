@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Resource } from './user';
 import { ActivatedRoute, Router } from '@angular/router'
 import { HttpErrorResponse } from '@angular/common/http';
 
-
 import { UserService } from './user.service';
 import { User } from '../admin/admin';
-
-
 
 @Component({
   selector: 'app-user',
@@ -56,7 +52,6 @@ export class UserComponent implements OnInit {
       }
     );
   }
-
 
 
 }

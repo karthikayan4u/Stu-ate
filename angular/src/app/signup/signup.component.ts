@@ -1,7 +1,7 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Signup } from './signup';
 import { SignupService } from './signup.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import {Router} from "@angular/router";
 
