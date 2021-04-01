@@ -18,10 +18,9 @@
       <mat-icon>search</mat-icon>
 </div>
 
-<mat-grid-list cols="3" style="text-align: center;">
-<mat-grid-tile colspan="2">
-    <div class='table'>
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<div class="row">
+    <div class='table col-8'> 
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="margin-left: 5%; overflow: scroll; height:550px;">
       <!-- S no Column -->
       <ng-container matColumnDef="position">
         <mat-header-cell *matHeaderCellDef> S No </mat-header-cell>
@@ -43,17 +42,16 @@
       <!-- Option Column -->
       <ng-container matColumnDef="symbol">
         <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
-        <mat-cell *matCellDef="let element"><button mat-raised-button><mat-icon>edit</mat-icon></button><button mat-raised-button><mat-icon>delete</mat-icon></button></mat-cell>
+        <mat-cell *matCellDef="let element"><button mat-raised-button style="align-items: center;"><mat-icon s>edit</mat-icon></button><button mat-raised-button><mat-icon>delete</mat-icon></button></mat-cell>
       </ng-container>
     
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
-    </div></mat-grid-tile>
-  <mat-grid-tile colspan="1">
-  <div class='full'>
+    </div>
+  <div class='full col-4' style="text-align: center; margin-top: 5%;">
     <div class="log">
-      <div class=mat-title>Edit details</div>
+      <div class=mat-title style="color: #2ba7a1;">Edit details</div>
 </div>
   <div class=mail>
     <mat-form-field floatLabel=never appearance='outline'>
@@ -80,11 +78,10 @@
     </mat-form-field>
 </div>
   <div class=login>
-    <button mat-raised-button>Update
+    <button mat-raised-button style="background-color:#2ba7a1; color: white;">Update
       </button>
   </div>
 </div>
-  </mat-grid-tile>
-</mat-grid-list>
+</div>
 
 
