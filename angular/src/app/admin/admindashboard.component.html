@@ -1,6 +1,6 @@
 <mat-toolbar  color="warn" class="navbar">
     <div>E-Learning</div>
-    <div>
+    <div *ngIf="user && user?.email === 'admin@email.com' && user?.password === 'admin'">
       <a>Welcome Admin!</a>
         <button mat-button><a routerLink="/admindashboard" routerLinkActive=true>Home</a></button>
         <button mat-button><a routerLink="/resource" routerLinkActive=true>Course</a></button>

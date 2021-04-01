@@ -27,10 +27,13 @@ export class ResourceComponent implements OnInit {
     this.resourceService.getUser().subscribe(
       (response: User) => {
         this.user = response;
-        console.log(this.user);
+        if(!this.user){
+          alert("Please Login/Signup to explore!");
+          this.router.navigate(['/login']);
+        }
       },
       (error: HttpErrorResponse) => {
-        alert("Please Login/Signup to explore");
+        alert("Please Login/Signup to explore!");
         this.router.navigate(['/login']);
       }
     );
@@ -105,6 +108,7 @@ export class ResourceComponent implements OnInit {
       }
     );
   }
+
   
   //button for whole container use.
   public onOpenModal(resource: Resource, mode: string): void {

@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {  PdfViewerModule  } from  'ng2-pdf-viewer';
 import { LogoutComponent } from './logout/logout.component';
+import { SafePipe } from './safe.pipe';
 
 
 
@@ -29,6 +30,7 @@ import { LogoutComponent } from './logout/logout.component';
     UserComponent,
     ResourceComponent,
     LogoutComponent,
+    SafePipe,
 
   ],
   imports: [

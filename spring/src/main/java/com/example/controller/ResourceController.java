@@ -3,6 +3,7 @@ package com.example.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import com.example.model.ResourceModel;
 import com.example.model.UserModel;
 import com.example.service.ResourceService;
@@ -54,5 +55,6 @@ public class ResourceController {
         resourceService.deleteResource(resourceId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
     
 }

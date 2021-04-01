@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from './admin';
+import { ResourceService } from '../resource/resource.service';
 import { AdmindashboardService } from './admindashboard.service';
 
 @Component({
@@ -15,11 +16,16 @@ export class AdmindashboardComponent implements OnInit {
   public users: User[] = [];
   public deleteUser!: User;
   public verifyUser!: User;
+  public user!: User;
 
   ngOnInit(){
-    this.getUsers();
+    this.getUser();
+    if(this.user && this.user.email === 'admin@email.com' && this.user.password === 'admin'){
+      this.getUsers();
+    }
+
   }
-  constructor(private adminService: AdmindashboardService, private router: Router){}
+  constructor(private resourceService: ResourceService, private adminService: AdmindashboardService, private router: Router){}
   
   public getUsers(): void {
     this.adminService.getUsers().subscribe(
@@ -29,6 +35,28 @@ export class AdmindashboardComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
+      }
+    );
+  }
+
+  public getUser(): void {
+    this.resourceService.getUser().subscribe(
+      (response: User) => {
+        this.user = response;
+        if(!this.user || this.user.email !== 'admin@email.com' || this.user.password !== 'admin'){
+          if(!this.user){
+            alert("Please Login/Signup to explore!");
+            this.router.navigate(['/login']);
+          }
+          else{
+            alert("You are not authorized to access this page!");
+            this.router.navigate(['/resource']);
+        }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        alert("Please Login/Signup to explore!");
+        this.router.navigate(['/login']);
       }
     );
   }

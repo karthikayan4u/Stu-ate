@@ -17,7 +17,7 @@ const routes: Routes = [
   {path : 'signup' ,component:SignupComponent},
   {path :'admindashboard',component:AdmindashboardComponent},
   {path : 'resource',component:ResourceComponent},
-  {path : 'user',component:UserComponent},
+  {path : 'user/:slug',component:UserComponent},
   {path :'**',component:PagenotfoundComponent}
   
 ];

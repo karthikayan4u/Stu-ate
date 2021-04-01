@@ -102,7 +102,7 @@ public class UserModel implements Serializable {
     //Location of the object
     @Override
     public String toString(){
-        return "Employee{" + 
+        return "User{" + 
         "username=" + username + 
         ", email='" + email + '\''+
         ", qualification='" + qualification + '\''+
