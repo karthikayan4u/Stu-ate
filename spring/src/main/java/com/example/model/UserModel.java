@@ -7,26 +7,29 @@ import javax.persistence.*;
 @Entity
 public class UserModel implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)//primarykey declaration
+    //primarykey declaration
     @Column(nullable = false, updatable = false)
+    private String email;
     private String username;
     private String password;
-    private String email;
     private String mobileNumber;
     private String qualification;
     private String role;
     private Boolean active;
+    private Boolean verify;
     
     public UserModel() {} // very important
 
     //contructor
-    public UserModel(String password, String email, String mobileNumber, String qualification, String role, Boolean active) {
+    public UserModel(String username, String password, String email, String mobileNumber, String qualification, String role, Boolean active, Boolean verify) {
+        this.username = username;
         this.password = password;
         this.email = email;
         this.mobileNumber = mobileNumber;
         this.qualification = qualification;
         this.role = role;
         this.active = active;
+        this.verify = verify;
     }
     
     public String getUsername(){
@@ -88,16 +91,25 @@ public class UserModel implements Serializable {
         this.active = active;
     }
 
+    public Boolean getVerify(){
+        return verify;
+    }
+
+    public void setVerify(Boolean verify){
+        this.verify = verify;
+    }
+
     //Location of the object
     @Override
     public String toString(){
-        return "Employee{" + 
+        return "User{" + 
         "username=" + username + 
         ", email='" + email + '\''+
         ", qualification='" + qualification + '\''+
         ", mobileNumber='" + mobileNumber + '\''+
         ", role='" + role + '\''+
         ", active='" + active + '\''+
+        ", verify='" + verify + '\''+
         '}'; 
     }
     

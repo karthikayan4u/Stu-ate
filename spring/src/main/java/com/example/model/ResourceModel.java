@@ -19,9 +19,12 @@ public class ResourceModel implements Serializable {
     private String resourceName;
     @Column(length = 1000)
     private String resourceLink;
+    @Column(length = 1000)
+    private String resourcepdfLink;
     private String resourceCategory;
     private Date createdOn;
-    private String createdBy;
+    @Column(length = 1000)
+    private UserModel createdBy;
     private Boolean verified;
     private Boolean active;
     @Column(length = 1000)
@@ -30,9 +33,10 @@ public class ResourceModel implements Serializable {
     public ResourceModel() {} // very important
 
     //contructor
-    public ResourceModel(String resourceName, String resourceLink , String resourceCategory, Date createdOn, String createdBy, Boolean verified, Boolean active, String imageUrl) {
+    public ResourceModel(String resourceName, String resourceLink , String resourcepdfLink, String resourceCategory, Date createdOn, UserModel createdBy, Boolean verified, Boolean active, String imageUrl) {
         this.resourceName = resourceName;
         this.resourceLink = resourceLink;
+        this.resourcepdfLink = resourcepdfLink;
         this.resourceCategory = resourceCategory;
         this.createdOn = createdOn;
         this.createdBy = createdBy;
@@ -66,6 +70,15 @@ public class ResourceModel implements Serializable {
         this.resourceLink = resourceLink;
     }
 
+
+    public String getResourcepdfLink(){
+        return resourcepdfLink;
+    }
+
+    public void setResourcepdfLink(String resourcepdfLink){
+        this.resourcepdfLink = resourcepdfLink;
+    }
+
     public String getResourceCategory(){
         return resourceCategory;
     }
@@ -92,11 +105,11 @@ public class ResourceModel implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public String getCreatedBy(){
+    public UserModel getCreatedBy(){
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy){
+    public void setCreatedBy(UserModel createdBy){
         this.createdBy = createdBy;
     }
 
@@ -123,6 +136,7 @@ public class ResourceModel implements Serializable {
         "resourceId=" + resourceId + 
         ", resourceName='" + resourceName + '\''+
         ", resourceLink='" + resourceLink + '\''+
+        ", resourcepdfLink='" + resourcepdfLink + '\''+
         ", resourceCategory='" + resourceCategory + '\''+
         ", createdOn='" + createdOn + '\''+
         ", createdBy='" + createdBy + '\''+
