@@ -1,61 +1,60 @@
-<mat-toolbar color="warn">
-    <span>E-Learning</span>
+<mat-toolbar style="background-color: #2ba7a1; color: white; font-family: 'Roboto Condensed', sans-serif; ">
+    <span style="font-size: xx-large;">E-Learning</span>
   </mat-toolbar>
   <div class="row"> 
     <div class="main col-5" style="text-align: center;" >
       <div class="log">
-        <div class=mat-title>Signup</div>
+        <div class=mat-title><h1 style="font-size: xx-large; color:#2ba7a1">Signup</h1></div>
   </div>
   <form #addForm="ngForm" (ngSubmit)="onAddUser(addForm)">
     <div class=mail>
-      <mat-form-field floatLabel=never appearance='outline' color='warn'>
-      <mat-label>Enter email</mat-label>
-        <input matInput type="email" autocomplete="off" ngModel name="email" class="form-control" id="email" placeholder="E-mail" required>
+      <mat-form-field floatLabel=never appearance='outline' style="width: 50%;">
+      <mat-label style="font-size: larger;">Enter email</mat-label>
+        <input matInput type="email" autocomplete="off" ngModel name="email" id="email" placeholder="E-mail" required>
     </mat-form-field>
     </div>
   <div class=mail>
-      <mat-form-field floatLabel=never appearance='outline' color='warn'>
-      <mat-label>Enter Username</mat-label>
-          <input matInput type="text" ngModel name="username" class="form-control" id="username" placeholder="Username" required>
+      <mat-form-field floatLabel=never appearance='outline' style="width: 50%;">
+      <mat-label style="font-size: larger;">Enter Username</mat-label>
+          <input matInput type="text" ngModel name="username" id="username" placeholder="Username" required>
       </mat-form-field>
   </div>
   <div class=mail>
-      <mat-form-field floatLabel=never appearance='outline' color='warn'>
-          <mat-label>Enter Mobilenumber</mat-label>
-          <input matInput type="text" ngModel name="mobileNumber" class="form-control" id="mobileNumber" placeholder="Mobile Number" required>
+      <mat-form-field floatLabel=never appearance='outline' style="width: 50%;">
+          <mat-label style="font-size: larger;">Enter Mobilenumber</mat-label>
+          <input matInput type="text" ngModel name="mobileNumber" id="mobileNumber" placeholder="Mobile Number" required>
       </mat-form-field>
   </div>
   <div class=mail>
-      <mat-form-field appearance='outline' color='warn'>
-          <mat-label>Enter Password</mat-label>
-          <input matInput type="password" autocomplete="off">
+      <mat-form-field appearance='outline' style="width: 50%;">
+          <mat-label style="font-size: larger;">Enter Password</mat-label>
+          <input matInput type="password" placeholder="Password" autocomplete="off">
       </mat-form-field>
   </div>
   <div class=mail>
-      <mat-form-field floatLabel=never appearance='outline' color='warn'>
-      <mat-label>Confirm password</mat-label>
-        <input matInput type="password" ngModel name="password" class="form-control" id="password" placeholder="Password" required autocomplete="off">
+      <mat-form-field floatLabel=never appearance='outline' style="width: 50%;">
+      <mat-label style="font-size: larger;">Confirm password</mat-label>
+        <input matInput type="password" ngModel name="password" id="password" placeholder="Confirm Password" required autocomplete="off">
         
     </mat-form-field>
   </div>
   <div class=mail>
-    <mat-form-field floatLabel=never appearance='outline' color='warn'>
-        <mat-label>Enter Qualification</mat-label>
-        <input matInput type="text" ngModel name="qualification" class="form-control" id="qualification" placeholder="Qualification" required>
+    <mat-form-field floatLabel=never appearance='outline' style="width: 50%;">
+        <mat-label style="font-size: larger;">Enter Qualification</mat-label>
+        <input matInput type="text" ngModel name="qualification" id="qualification" placeholder="Qualification" required>
     </mat-form-field>
   </div>
   <div class=mail>
-    <mat-form-field floatLabel=never appearance='outline' color='warn'>
-        <mat-label>Enter Role</mat-label>
-        <input matInput type="text" ngModel name="role" class="form-control" id="role" placeholder="Role" required>
+    <mat-form-field floatLabel=never appearance='outline' style="width: 50%;">
+        <mat-label style="font-size: larger;">Enter Role</mat-label>
+        <input matInput type="text" ngModel name="role" id="role" placeholder="Role" required>
     </mat-form-field>
   </div>
     <div class=login>
-      <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Signup</button>
-      
+      <button mat-raised-button [disabled]="addForm.invalid" type="submit" style="background-color: #2ba7a1; color: white; font-family: 'Roboto Condensed', sans-serif; font-size:larger;">Signup</button>
     </div>
     <div class=sign>
-      <div>Already a User?<button type="button" id="add-signup-form" class="btn btn-secondary" data-dismiss="modal" disableRipple mat-button><a class="anchor" routerLink="/login" routerLinkActive=true>Login</a></button>
+      <div>Already a User?<a class="anchor" routerLink="/login" routerLinkActive=true><button mat-button type="button" id="add-signup-form" data-dismiss="modal" disableRipple mat-button>Login</button></a>
       </div>
     </div>
   </form>
