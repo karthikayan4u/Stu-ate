@@ -21,6 +21,6 @@ public class ChatService {
     }
 
     public Optional<ChatModel> showChat(String chatId){
-        return chatRepo.findResourceByChatId(chatId);
+        return chatRepo.findChatByChatId(chatId);
     }
 }

@@ -1,28 +1,46 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Resource } from './user';
 import { ActivatedRoute, Router } from '@angular/router'
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { UserService } from './user.service';
-import { User } from '../admin/admin';
+import { User, ChatMessage } from './user';
+
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   public currentResource!: Resource;
   public video!: String;
   public pdf!: String;
   public user!: User;
+  
   constructor(private resourceService: UserService,private router: Router, private actroute: ActivatedRoute) { }
+
+  messages = [{
+    "text":"Hi How are you?",
+    "self":false
+  },{
+    "text":"I am fine",
+    "self":true
+  }]
+  replyMessage = "";
 
   ngOnInit(): void {
     this.getresource();
     this.getUser();
-    console.log(this.actroute.snapshot.params.slug);
+    this.resourceService.openWebSocket();
   }
+
+
+  ngOnDestroy(): void {
+    this.resourceService.closeWebSocket();
+  }
+
   public getUser(): void {
     this.resourceService.getUser().subscribe(
       (response: User) => {
@@ -53,5 +71,10 @@ export class UserComponent implements OnInit {
     );
   }
 
+  sendMessage(sendForm: NgForm) {
+    const chatMessageDto = new ChatMessage(sendForm.value.primary_user, sendForm.value.secondary_user, sendForm.value.message);
+    this.resourceService.sendMessage(chatMessageDto);
+    sendForm.controls.message.reset();
+  }
 
 }

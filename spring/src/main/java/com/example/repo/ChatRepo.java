@@ -7,7 +7,7 @@ import com.example.model.ChatModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChatRepo extends JpaRepository<ChatModel, String>{
-    void deleteResourceByChatId(String ChatId);
+    void deleteChatByChatId(String ChatId);
 
-    Optional<ChatModel> findResourceByChatId(String chatId);
+    Optional<ChatModel> findChatByChatId(String chatId);
 }

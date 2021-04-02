@@ -20,3 +20,15 @@ export interface Resource{
     active: boolean;
     verified: boolean;
 }
+
+export class ChatMessage{
+    primary_user: User;
+    secondary_user: User;
+    message: string;
+
+    constructor(primary_user: User,secondary_user: User, message: string){
+        this.primary_user = primary_user;
+        this.secondary_user = secondary_user;
+        this.message = message;
+    }
+}

@@ -17,17 +17,23 @@
     </div>
 </div>
     </div>
+
+    <!--Chat-->
     <div class="col-4" style="padding-top: 2%;">
         <div class="chatbox">
             <div class="messages">
-            <div *ngFor="let message of messages" [class.right]="message.self">
-             <strong><h3 style="padding-right: 1.5%;">{{message.text}}</h3></strong>
+            <div *ngFor="let chatMessage of resourceService.chatMessages">
+            
+             <strong><h3>{{chatMessage.message}}</h3></strong>
             </div>
             </div>
             <div class="input-container">
-            <input type="text" class="inputtext" [(ngModel)]="replyMessage" style="width: 75%; height: 180%;">
-            <button mat-button class="replyBtn" (click)="reply()" style="background-color:#2ba7a1; margin-left: 2%;">Send</button>
-            </div>
+                <form (ngSubmit)="sendMessage(sendForm)" #sendForm="ngForm">
+                <input type="hidden" class="form-control" name="user" id="input-user" ngModel={{resource?.createdBy}} >
+                <input type="hidden" class="form-control" name="user" id="input-user" ngModel={{user}} >
+                <input type="text" class="form-control" name="message" id="input-message" ngModel style="width: 75%; height: 180%;">
+            <button mat-button class="replyBtn" type="submit" style="background-color:#2ba7a1; margin-left: 2%;">Send</button>
+            </form></div>
             </div>
     </div>
 </div>

@@ -20,9 +20,9 @@ export class AdmindashboardComponent implements OnInit {
 
   ngOnInit(){
     this.getUser();
-    if(this.user && this.user.email === 'admin@email.com' && this.user.password === 'admin'){
-      this.getUsers();
-    }
+    setTimeout(() => {if(this.user && this.user.email === 'admin@email.com' && this.user.password === '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'){
+      this.getUsers(); 
+    }}, 200);
 
   }
   constructor(private resourceService: ResourceService, private adminService: AdmindashboardService, private router: Router){}
@@ -43,7 +43,8 @@ export class AdmindashboardComponent implements OnInit {
     this.resourceService.getUser().subscribe(
       (response: User) => {
         this.user = response;
-        if(!this.user || this.user.email !== 'admin@email.com' || this.user.password !== 'admin'){
+        console.log(response);
+        if(!(this.user && this.user.email === 'admin@email.com' && this.user.password === '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918')){
           if(!this.user){
             alert("Please Login/Signup to explore!");
             this.router.navigate(['/login']);
