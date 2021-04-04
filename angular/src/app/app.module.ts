@@ -16,7 +16,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {  PdfViewerModule  } from  'ng2-pdf-viewer';
 import { LogoutComponent } from './logout/logout.component';
-import { ChatComponent } from './chat/chat.component';
 
 
 
@@ -30,7 +29,6 @@ import { ChatComponent } from './chat/chat.component';
     UserComponent,
     ResourceComponent,
     LogoutComponent,
-    ChatComponent,
 
   ],
   imports: [

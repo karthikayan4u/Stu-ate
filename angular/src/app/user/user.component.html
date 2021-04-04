@@ -17,23 +17,49 @@
     </div>
 </div>
     </div>
-
-    <!--Chat-->
     <div class="col-4" style="padding-top: 2%;">
         <div class="chatbox">
-            <div class="messages">
-            <div *ngFor="let chatMessage of resourceService.chatMessages">
+            <div class="container clearfix">
+                <div class="people-list" id="people-list">
+                    <div class="col-6" style="padding:0 0%;"> 
+                        <form class="form-inline my-2 my-lg-0">
+                        <input type="search" (ngModelChange)="searchusers(key.value)" #key="ngModel" ngModel
+                         name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search users..." required>
+                        </form></div>
+                     <div *ngFor="let user of users" class="col-md-6 col-xl-3">
+                        <a (click)="selectreceiver(user)" class="btn btn-danger" data-dismiss="modal">{{user?.username}}<span class="sr-only">(current)</span></a>
+                    </div>
+                </div>
+                <div class="chat">
+                    <div class="chat-header clearfix">
+                        <img alt="avatar" height="55px"
+                             src="https://rtfm.co.ua/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
+                             width="55px"/>
             
-             <strong><h3>{{chatMessage.message}}</h3></strong>
-            </div>
-            </div>
-            <div class="input-container">
-                <form (ngSubmit)="sendMessage(sendForm)" #sendForm="ngForm">
-                <input type="hidden" class="form-control" name="user" id="input-user" ngModel={{resource?.createdBy}} >
-                <input type="hidden" class="form-control" name="user" id="input-user" ngModel={{user}} >
-                <input type="text" class="form-control" name="message" id="input-message" ngModel style="width: 75%; height: 180%;">
-            <button mat-button class="replyBtn" type="submit" style="background-color:#2ba7a1; margin-left: 2%;">Send</button>
-            </form></div>
-            </div>
-    </div>
-</div>
+                        <div class="chat-about">
+                            <div class="chat-with">{{receiver?.username}}</div>
+                            <div class="chat-num-messages"></div>
+                        </div>
+                        <i class="fa fa-star"></i>
+                    </div> <!-- end chat-header -->
+            
+                    <div class="chat-history">
+                        <ul>
+                            <p>{{sender}}:{{response}}</p>
+                        </ul>
+            
+                    </div> <!-- end chat-history -->
+            
+                    <div class="chat-message clearfix">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <input type="text" [(ngModel)]="message" class="form-control" name="message" placeholder="Type your message..." required rows="3"> <br>
+                            </div>
+                            <button (click)="sendMsg()" class="btn btn-default" type="submit">Send</button>
+                        </form>
+            
+                    </div> <!-- end chat-message -->
+            
+                </div> <!-- end chat -->
+            
+            </div> <!-- end container -->
