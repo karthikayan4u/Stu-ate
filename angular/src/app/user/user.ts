@@ -44,4 +44,6 @@ export interface Chat{
     usersId: String;
     status: Boolean;
     lastSeen: Date;
+    chatHistory: String[];
+    resourceId: String;
 }

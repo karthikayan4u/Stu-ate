@@ -27,7 +27,7 @@
                          name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search users..." required>
                         </form></div>
                      <div *ngFor="let user of users" class="col-md-6 col-xl-3">
-                        <a (click)="selectreceiver(user)" class="btn btn-danger" data-dismiss="modal">{{user?.username}}<span class="sr-only">(current)</span></a>
+                        <a (click)="selectreceiver(user)" data-dismiss="modal">{{user?.username}}<span class="sr-only">(current)</span></a>
                     </div>
                 </div>
                 <div class="chat">
@@ -40,10 +40,13 @@
                             <div class="chat-with">{{receiver?.username}}</div>
                             <div class="chat-num-messages"></div>
                         </div>
-                        <i class="fa fa-star"></i>
+                        <a (click)="onDeleteChat(currentuser.resourceId)" class="btn btn-danger" data-dismiss="modal">Delete Chat<span class="sr-only">(current)</span></a>
                     </div> <!-- end chat-header -->
             
                     <div class="chat-history">
+                        <ul *ngFor="let msg in chatHistory">
+                            {{msg}}
+                        </ul>
                         <ul>
                             <p>{{sender}}:{{response}}</p>
                         </ul>
