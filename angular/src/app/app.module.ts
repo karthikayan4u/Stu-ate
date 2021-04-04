@@ -16,7 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {  PdfViewerModule  } from  'ng2-pdf-viewer';
 import { LogoutComponent } from './logout/logout.component';
-import { SafePipe } from './safe.pipe';
+import { ChatComponent } from './chat/chat.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 
 
@@ -30,8 +31,7 @@ import { SafePipe } from './safe.pipe';
     UserComponent,
     ResourceComponent,
     LogoutComponent,
-    SafePipe,
-
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +41,8 @@ import { SafePipe } from './safe.pipe';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    PdfViewerModule
+    PdfViewerModule,
+    YouTubePlayerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

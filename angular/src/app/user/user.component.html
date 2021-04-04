@@ -1,23 +1,24 @@
 <mat-toolbar  style="background-color: #2ba7a1; color: white; font-family: 'Roboto Condensed', sans-serif; " class="navbar">
-    <div>E-Learning</div>
+    <div style="font-size: xx-large;">E-Learning</div>
     <div>
-        <a routerLink="/login" routerLinkActive=true><button mat-button>Logout</button></a>
+        <a routerLink="/resource" routerLinkActive=true><button mat-button class=buttons>Course</button></a>
+        <a routerLink="/login" routerLinkActive=true><button mat-button class=buttons>Logout</button></a>
 </div>
 </mat-toolbar>
 <div class="row">
     <div class="col-8">
-        <iframe width="1000" height="600" style= "margin-left: 2rem; margin-top: 2rem;" src="{{video}}"></iframe>
+        <youtube-player [width]="1000" [height]="600" videoId="{{video}}" style="margin-left: 2rem; margin-top: 2rem;"></youtube-player>
 <div class="video-url" style="text-align: center;">
-    Video-URL:<button mat-button><a href="{{video}}"><h2>{{video}}</h2></a></button>
+    Video-URL:<a href="https://www.youtube.com/watch?v={{video}}"><h2>https://www.youtube.com/watch?v={{video}}</h2></a>
 </div>
 <div>
-    <iframe width="1000" height="600" src="{{pdf}}" style="margin-left: 2rem; margin-top: 2rem;"></iframe>
+    <iframe  width=1000 height=600 src="{{pdf}}" style="margin-left: 2rem; margin-top: 2rem;"></iframe> 
     <div class="pdf-url" style="text-align: center;">
-       pdf-URL:<button mat-button><a href="{{pdf}}"><h2>{{pdf}}</h2></a></button>
+       pdf-URL:<a href="{{pdf}}"><h2>{{pdf}}</h2></a>
     </div>
 </div>
     </div>
-    <div class="col-4">
-        #####chathere######
-    </div>
+<div class="col-4">
+    chat here
+</div>
 </div>

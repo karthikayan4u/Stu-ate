@@ -1,14 +1,16 @@
-<mat-toolbar  style="background-color: #2ba7a1; color: white; font-family: 'Roboto Condensed', sans-serif; ">
-    <div>E-Learning</div>
-    <div>
-      <a>Welcome Admin!</a>
-        <button mat-button><a routerLink="/admindashboard" routerLinkActive=true>Home</a></button>
-        <button mat-button><a routerLink="/resource" routerLinkActive=true>Course</a></button>
-        <button mat-button><a routerLink="/login" routerLinkActive=true>Logout</a></button>
+<mat-toolbar class="navbar" style="background-color: #2ba7a1; color: white; font-family: 'Roboto Condensed', sans-serif; ">
+    <div style="font-size: xx-large;">E-Learning</div>
+    <div *ngIf="user?.email === 'admin@email.com' && user?.password === '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'">
+      <a style="margin-right: 3%;">Welcome admin!</a>
+      <span>
+        <a routerLink="/admindashboard" routerLinkActive=true><button mat-button class=buttons>Home</button></a>
+        <a routerLink="/resource" routerLinkActive=true><button mat-button class=buttons >Course</button></a>
+        <a routerLink="/login" routerLinkActive=true><button mat-button class=buttons>Logout</button></a>
+      </span>
 </div>
 </mat-toolbar>
 
-<div class="col-6" style="padding:0 0%;"> <form class="form-inline my-2 my-lg-0">
+<div class="col-6" style="margin-left:45%;"> <form class="form-inline my-2 my-lg-0">
   <input type="search" (ngModelChange)="searchUsers(key.value)" #key="ngModel" ngModel
    name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search users..." required>
 </form></div>
@@ -20,8 +22,8 @@
        <div class="card m-b-30">
           <div class="card-body row">
              <div class="col-6 card-title align-self-center mb-0">
-                <h5>{{user?.username}} <mat-icon *ngIf="user?.verify">verified_user</mat-icon>
-                  <mat-icon *ngIf="!user?.verify">watch_later</mat-icon></h5>
+                <h2>{{user?.username}} <mat-icon *ngIf="user?.verify">verified_user</mat-icon>
+                  <mat-icon *ngIf="!user?.verify">watch_later</mat-icon></h2>
              </div>
           </div>
           <ul class="list-group list-group-flush">
@@ -39,12 +41,12 @@
              <div class="float-right btn-group btn-group-sm">
                 <a (click)="onOpenModal(user, 'verify')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Verify"><i class="fa fa-pencil"></i> </a>
                 <a (click)="onOpenModal(user, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
-                
              </div>
           </div>
        </div>
     </div>
   </div>
+
   
   <!-- Edit Modal -->
   <div class="modal fade" id="verifyUserModal" tabindex="-1" role="dialog" aria-labelledby="userVerifyModalLabel" aria-hidden="true">
@@ -91,7 +93,7 @@
              </button>
           </div>
           <div class="modal-body">
-             <p>Are you sure you want to delete resource {{deleteUser?.username}}?</p>
+             <p>Are you sure you want to delete user {{deleteUser?.username}}?</p>
              <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
                 <button (click)="onDeleteUser(deleteUser.email)" class="btn btn-danger" data-dismiss="modal">Yes</button>
@@ -103,7 +105,7 @@
   </div>
   
   <!-- Notification for no resources -->
-  <div *ngIf="users?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+  <div *ngIf="users && users?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
   <div class="alert alert-info" role="alert">
     <h4 class="alert-heading">NO USERS!</h4>
     <p>No users were found.</p>
