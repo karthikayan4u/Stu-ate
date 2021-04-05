@@ -1,21 +1,27 @@
 package com.example.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
 
+//import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 public class ChatModel {
     @Id
     @GeneratedValue(generator = "system-uuid")//primarykey declaration
     @GenericGenerator(name = "system-uuid", strategy="uuid")
-    @Column(nullable = false, updatable = false)
+    @Column(name="id",nullable = false, updatable = false)
     private String chatId;
-    //private Long msgId;//
-    private String usersId;
+    private String resourceId;
+    @ElementCollection
+    @Column(name = "chatHistory")
+    private List<String> chatHistory = new ArrayList<String>();
     @Column(length = 5000)
     private UserModel primaryUser;
     @Column(length = 5000)
@@ -25,11 +31,10 @@ public class ChatModel {
 
     public ChatModel() {} 
 
-    public ChatModel(UserModel primaryUser, UserModel secondaryUser, String usersId, Boolean status, Date lastSeen) {
+    public ChatModel(UserModel primaryUser, UserModel secondaryUser, Boolean status, Date lastSeen) {
         this.primaryUser = primaryUser;
         this.secondaryUser = secondaryUser;
         this.status = status;
-        this.usersId = usersId;
         this.lastSeen = null;
     }
 
@@ -40,11 +45,21 @@ public class ChatModel {
         this.chatId = chatId;
     }
 
-    public String getUsersId() {
-        return usersId;
+    public String getResourceId() {
+        return resourceId;
     }
-    public void setUsersId(String usersId) {
-        this.usersId = usersId;
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    public List<String> getChatHistory() {
+        return chatHistory;
+    }
+    public void setChatHistory(List<String> chatHistory) {
+        this.chatHistory = chatHistory;
+    }
+    public void setChatHistoryEmpty() {
+        this.chatHistory.clear();
     }
     public UserModel getPrimaryUser() {
         return primaryUser;
@@ -75,8 +90,7 @@ public class ChatModel {
 
     @Override
     public String toString() {
-        return "ChatModel [chatId=" + chatId + ", UsersId=" + usersId
-        + " primaryUser=" + primaryUser
+        return "ChatModel [chatId=" + chatId + " primaryUser=" + primaryUser
                 + ", secondaryUser=" + secondaryUser + ", status=" + status + "]";
     }
     

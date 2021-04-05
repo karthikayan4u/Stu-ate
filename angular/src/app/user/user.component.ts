@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ValueProvider } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router'
 import { HttpErrorResponse } from '@angular/common/http';
@@ -29,8 +29,13 @@ export class UserComponent implements OnInit, OnDestroy {
   stompClient: any;
 
   constructor(public userService: UserService,private router: Router, private actroute: ActivatedRoute) { }
+
   ngOnDestroy(): void {
-    this.userService.saveChat(this.chatHistory, this.currentuser.resourceId);
+    console.log(this.chatHistory);
+    this.saveChat(this.chatHistory, this.chat.chatId);
+    setTimeout(() =>{
+
+    }, 500);
   }
 
 
@@ -42,51 +47,11 @@ export class UserComponent implements OnInit, OnDestroy {
     setTimeout(()=>{
     this.getUsers();
   }, 100); 
-    setTimeout(()=>{
+  if(this.user != null){
     this.connectToChat();
-  }, 100);
-    setTimeout(()=>{
-    this.showChat();
-  }, 100);
+  }
+  
 }
-
-  public getUsers(): void {
-    this.userService.getUsers().subscribe(
-      (response: User[]) => {
-        this.users = response;
-        console.log(this.users);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
-  }
-
-  public getUser(): void {
-    this.userService.getUser().subscribe(
-      (response: User) => {
-        this.user = response;
-        console.log("User  " + this.user);
-      },
-      (error: HttpErrorResponse) => {
-        alert("Please Login/Signup to explore!");
-        this.router.navigate(['/login']);
-      }
-    );
-  }
-
-  public showChat(): void {
-    this.userService.showChat(this.currentuser.resourceId).subscribe(
-      (response: Array<String>) => {
-        this.chatHistory = response;
-        console.log("User  " + this.user);
-      },
-      (error: HttpErrorResponse) => {
-        alert("Please Login/Signup to explore!");
-        this.router.navigate(['/login']);
-      }
-    );
-  }
 
 
   public getresource(): void{
@@ -99,6 +64,18 @@ export class UserComponent implements OnInit, OnDestroy {
       },
       (error: HttpErrorResponse) => {
         alert("Course not found");
+      }
+    );
+  }
+
+  public getUsers(): void {
+    this.userService.getUsers().subscribe(
+      (response: User[]) => {
+        this.users = response;
+        console.log(this.users);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
       }
     );
   }
@@ -119,24 +96,32 @@ export class UserComponent implements OnInit, OnDestroy {
     }
   }
 
+  public getUser(): void {
+    this.userService.getUser().subscribe(
+      (response: User) => {
+        this.user = response;
+        console.log("User  " + this.user);
+      }
+    );
+  }
+
 
   public connectToChat() {
     console.log("connecting to chat...")
     this.stompClient = Stomp.over(() =>{
-      return new SockJS(this.url + '/chat');
+      return new SockJS(this.url + '/Chat');
     });
-    this.stompClient.reconnect_delay = 0;
+    this.stompClient.reconnect_delay = 5000;
     console.log("connection started to chat..." + this.stompClient)
     this.stompClient.connect({},  (frame: any) => {
         console.log("connected to: " + frame);
         this.stompClient.subscribe("/topic/messages/" + this.user.username, 
          (response: { body: string; }) => {
-            let data = JSON.parse(response.body);
             console.log("RECEIVED RESPONSE: " + response);
+            let data = JSON.parse(response.body);
             this.response = data.message;
             this.sender = data.fromLogin;
-            this.userService.startChat(this.currentuser.resourceId);
-            
+            this.startChat();
         });
     });  
     
@@ -146,17 +131,25 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService.deleteChat(resourceId).subscribe(
       (response: void) => {
         console.log(response);
+        this.chatHistory = [];
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
-        this.showChat();
+        
+      }
+    );
+  }
+  public saveChat(chat: Array<String>, chatId: string): void{
+    this.userService.saveChat(chat, chatId).subscribe(
+      (response: void) => {
+        console.log(response);
       }
     );
   }
   
 
   public sendMsg() {
-    this.stompClient.send("/app/chat/" + this.receiver.username, {}, JSON.stringify({
+    this.stompClient.send("/app/Chat/" + this.receiver.username, {}, JSON.stringify({
         fromLogin: this.user.username,
         message: this.message
     }));
@@ -167,6 +160,9 @@ export class UserComponent implements OnInit, OnDestroy {
   public selectreceiver(selectedreceiver: User): void {
     console.log("selected user: " + selectedreceiver.username);
     this.receiver = selectedreceiver;
+    if(this.chat!= null && this.chatHistory.length != 0){
+      this.saveChat(this.chatHistory, this.chat.chatId);
+    }
     setTimeout(() => {
       let prime, second;
       if(this.user && this.user.username === this.currentuser.createdBy.username){
@@ -186,11 +182,19 @@ export class UserComponent implements OnInit, OnDestroy {
       this.userService.getChat(prime, second, this.currentuser.resourceId).subscribe(
         (response: Chat) => {
           this.chat = response;
+          this.chatHistory = response.chatHistory;
+          console.log("CHAT: ", this.chat);
         }
+
     ), 500});
   }
 
-  
+  public startChat(): void {
+    this.userService.startChat(this.chat.chatId).subscribe(
+      (response: Boolean) => {
+      }
+    );
+  }
   
 }
 

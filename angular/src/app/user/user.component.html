@@ -17,7 +17,7 @@
     </div>
 </div>
     </div>
-    <div class="col-4" style="padding-top: 2%;">
+    <div *ngIf="user" class="col-4" style="padding-top: 2%;">
         <div class="chatbox">
             <div class="container clearfix">
                 <div class="people-list" id="people-list">
@@ -40,11 +40,11 @@
                             <div class="chat-with">{{receiver?.username}}</div>
                             <div class="chat-num-messages"></div>
                         </div>
-                        <a (click)="onDeleteChat(currentuser.resourceId)" class="btn btn-danger" data-dismiss="modal">Delete Chat<span class="sr-only">(current)</span></a>
+                        <a (click)="onDeleteChat(chat.chatId)" class="btn btn-danger" data-dismiss="modal">Delete Chat<span class="sr-only">(current)</span></a>
                     </div> <!-- end chat-header -->
             
                     <div class="chat-history">
-                        <ul *ngFor="let msg in chatHistory">
+                        <ul *ngFor="let msg of chatHistory">
                             {{msg}}
                         </ul>
                         <ul>

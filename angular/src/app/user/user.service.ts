@@ -33,14 +33,13 @@ export class UserService {
 
     public startChat(chatId: String): Observable<Boolean> {
       return this.http.post<Boolean>(`${this.apiServerUrl}/chat/${chatId}`, chatId);
-    }  
+    }
 
     public showChat(chatId: String): Observable<Array<String>> {
       return this.http.get<Array<String>>(`${this.apiServerUrl}/chat/${chatId}`);
-    
     }
 
     public deleteChat(chatId: String): Observable<void> {
-      return this.http.delete<void>(`${this.apiServerUrl}/${chatId}`);
+      return this.http.delete<void>(`${this.apiServerUrl}/chat/${chatId}`);
   }
 }

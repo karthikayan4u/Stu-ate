@@ -1,10 +1,11 @@
 package com.example.service;
 
-//import java.util.Date;
-import java.util.Optional;
+import java.util.List;
+import java.util.Date;
+import java.util.stream.Stream;
 
 import com.example.model.ChatModel;
-//import com.example.model.UserModel;
+import com.example.model.UserModel;
 import com.example.repo.ChatRepo;
 import com.example.repo.UserRepository;
 
@@ -19,33 +20,44 @@ public class ChatService {
     private ChatRepo chatRepo;
 
     @Autowired
-    public void LoginService(UserRepository userRepo, ChatRepo chatRepo){
+    public void ChatService(UserRepository userRepo, ChatRepo chatRepo){
         this.userRepo = userRepo;
         this.chatRepo = chatRepo;
     }
     
     
-    public ChatModel saveChat(String[] cur_chat, String Id){
-        String[] chat = chatRepo.findById(Id).getChatHistory();
-        int a1 = chat.chatHistory.length;
-        int b1 = cur_chat.length;
-        int c1 = a1 + b1;
-        String[] c = new String[c1];
-        System.arraycopy(chat, 0, c, 0, a1);
-        System.arraycopy(cur_chat, 0, c, a1, b1);
-        chat.chatHistory = c;
-        return chatRepo.save(chat);
+    public void saveChat(List<String> cur_chat, String Id){
+        ChatModel chat = chatRepo.findChatByChatId(Id);
+        Date date = new Date();
+        //List<String> chat_hist = (List<String>) Stream.concat(chat.getChatHistory().stream(), cur_chat.stream());
+        System.out.println(cur_chat);
+        chat.setChatHistory(cur_chat);
+        chat.setLastSeen(date);
+        chat.setStatus(false);
+        chatRepo.save(chat);
     }
 
-    public Optional<ChatModel> showChat(String chatId){
-        return chatRepo.findChatByChatId(chatId);
+    public List<String> showChat(String chatId){
+        return chatRepo.findChatByChatId(chatId).getChatHistory();
     }
 
-    /*public ChatModel getChat(String user, String creator, String resourceId){
+    public void startChat(String chatId){
+        ChatModel chat = chatRepo.findChatByChatId(chatId);
+        chat.setStatus(true);
+        chatRepo.save(chat);
+    }
+
+    public void deleteChat(String chatId){ 
+        ChatModel chat = chatRepo.findChatByChatId(chatId);
+        chat.setChatHistoryEmpty();
+        chatRepo.save(chat);
+    }
+
+    public ChatModel getChat(String user, String creator, String resourceId){
         System.out.println("\n");
         System.out.println("Start");
         System.out.println("\n");
-        ChatModel chat = chatRepo.findChatByUsersId(user + creator + resourceId);
+        ChatModel chat = chatRepo.findChatByResourceId(user + creator + resourceId);
         System.out.println("\n");
         System.out.println(chat);
         System.out.println("\n");
@@ -61,8 +73,8 @@ public class ChatService {
             //System.out.println(userRepo.findByEmail(creator));
             chat.setPrimaryUser(c);
             chat.setSecondaryUser(u);
-            chat.setUsersId(user + creator + resourceId);
             chat.setStatus(true);
+            chat.setResourceId(user + creator + resourceId);
             Date date = new Date();
             chat.setLastSeen(date);
             System.out.println("\n");
@@ -72,6 +84,5 @@ public class ChatService {
             System.out.println(chat);
         }
         return chat;
-    }*/
-
+    }
 }
