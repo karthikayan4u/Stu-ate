@@ -15,4 +15,12 @@ export class SignupService {
     public addUser(signup: Signup): Observable<Signup> {
         return this.http.post<Signup>(`${this.apiServerUrl}/signup/`, signup);
     }
+
+    public sendVerification(email: String): Observable<Boolean> {
+        return this.http.post<Boolean>(`${this.apiServerUrl}/signup/send`, email);
+    }
+
+    public checkVerification(code: String): Observable<Boolean> {
+        return this.http.post<Boolean>(`${this.apiServerUrl}/signup/verify`, code);
+    }
 }

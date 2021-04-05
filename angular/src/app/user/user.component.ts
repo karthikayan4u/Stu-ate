@@ -1,55 +1,66 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ValueProvider } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Resource } from './user';
 import { ActivatedRoute, Router } from '@angular/router'
 import { HttpErrorResponse } from '@angular/common/http';
 
-
 import { UserService } from './user.service';
-import { User } from '../admin/admin';
-
-
+import { User, Chat, Resource } from './user';
+import * as SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
-  public currentResource!: Resource;
+export class UserComponent implements OnInit, OnDestroy {
+  public currentuser!: Resource;
   public video!: String;
   public pdf!: String;
+  public users: User[] = [];
+  public chatHistory: Array<String> = [];
+  public response!: String;
   public user!: User;
-  constructor(private resourceService: UserService,private router: Router, private actroute: ActivatedRoute) { }
+  public sender!: any;
+  public receiver!: User;
+  public chat!: Chat;
+  message!: string;
+  url = 'http://localhost:8080';
+  stompClient: any;
+
+  constructor(public userService: UserService,private router: Router, private actroute: ActivatedRoute) { }
+
+  ngOnDestroy(): void {
+    //console.log(this.chatHistory);
+    this.saveChat(this.chatHistory, this.chat.chatId);
+    setTimeout(() =>{
+
+    }, 500);
+  }
+
 
   ngOnInit(): void {
     this.getresource();
+    setTimeout(()=>{
     this.getUser();
-    console.log(this.actroute.snapshot.params.slug);
+  }, 100);
+    setTimeout(()=>{
+    this.getUsers();
+  }, 100); 
+  if(this.user != null){
+    this.connectToChat();
   }
-  public getUser(): void {
-    this.resourceService.getUser().subscribe(
-      (response: User) => {
-        this.user = response;
-        if(!this.user){
-          alert("Please Login/Signup to explore!");
-          this.router.navigate(['/login']);
-        }
-      },
-      (error: HttpErrorResponse) => {
-        alert("Please Login/Signup to explore!");
-        this.router.navigate(['/login']);
-      }
-    );
-  }
+  
+}
+
 
   public getresource(): void{
-    this.resourceService.getResource(this.actroute.snapshot.params.slug).subscribe(
+    this.userService.getResource(this.actroute.snapshot.params.slug).subscribe(
       (response: Resource) => {
-        this.currentResource = response;
-        this.video = this.currentResource.resourceLink;
-        this.pdf = this.currentResource.resourcepdfLink;
-        console.log(this.currentResource);
+        this.currentuser = response;
+        this.video = this.currentuser.resourceLink;
+        this.pdf = this.currentuser.resourcepdfLink;
+        //console.log(this.currentuser);
       },
       (error: HttpErrorResponse) => {
         alert("Course not found");
@@ -57,6 +68,135 @@ export class UserComponent implements OnInit {
     );
   }
 
+  public getUsers(): void {
+    this.userService.getUsers().subscribe(
+      (response: User[]) => {
+        this.users = response;
+        //console.log(this.users);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public searchusers(key: string): void {
+    const results: User[] = [];
+    for (const user of this.users) {
+      if (user.username.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || user.email.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || user.qualification.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || user.role.toLowerCase().indexOf(key.toLowerCase()) !== -1){
+        results.push(user);
+      }
+    }
+    this.users = results;
+    if (!key) {
+      this.getUsers(); //we will display all users again
+    }
+  }
+
+  public getUser(): void {
+    this.userService.getUser().subscribe(
+      (response: User) => {
+        this.user = response;
+        //console.log("User  " + this.user);
+      }
+    );
+  }
 
 
+  public connectToChat() {
+    //console.log("connecting to chat...")
+    this.stompClient = Stomp.over(() =>{
+      return new SockJS(this.url + '/Chat');
+    });
+    this.stompClient.reconnect_delay = 5000;
+    //console.log("connection started to chat..." + this.stompClient)
+    this.stompClient.connect({},  (frame: any) => {
+        //console.log("connected to: " + frame);
+        this.stompClient.subscribe("/topic/messages/" + this.user.username, 
+         (response: { body: string; }) => {
+            //console.log("RECEIVED RESPONSE: " + response);
+            let data = JSON.parse(response.body);
+            this.response = data.message;
+            this.sender = data.fromLogin;
+            this.startChat();
+        });
+    });  
+    
+  }
+
+  public onDeleteChat(resourceId: string): void{
+    this.userService.deleteChat(resourceId).subscribe(
+      (response: void) => {
+        //console.log(response);
+        this.chatHistory = [];
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        
+      }
+    );
+  }
+  public saveChat(chat: Array<String>, chatId: string): void{
+    this.userService.saveChat(chat, chatId).subscribe(
+      (response: void) => {
+        //console.log(response);
+      }
+    );
+  }
+  
+  
+
+  public sendMsg() {
+    this.stompClient.send("/app/Chat/" + this.receiver.username, {}, JSON.stringify({
+        fromLogin: this.user.username,
+        message: this.message
+    }));
+    this.chatHistory.push(this.message);
+  }
+
+
+  public selectreceiver(selectedreceiver: User): void {
+    console.log("selected user: " + selectedreceiver.username);
+    this.receiver = selectedreceiver;
+    if(this.chat!= null && this.chatHistory.length != 0){
+      this.saveChat(this.chatHistory, this.chat.chatId);
+    }
+    setTimeout(() => {
+      let prime, second;
+      if(this.user && this.user.username === this.currentuser.createdBy.username){
+        prime = this.user.username;
+        second = this.receiver.username;
+      }
+      else if(this.receiver.username === this.currentuser.createdBy.username){
+        prime = this.receiver.username;
+        second = this.user.username;
+      }
+      else{
+        let values = [this.receiver.username, this.user.username];
+        values.sort((a, b)=>(a>b?-1:1));
+        prime = values[0];
+        second = values[1];
+      }
+      this.userService.getChat(prime, second, this.currentuser.resourceId).subscribe(
+        (response: Chat) => {
+          this.chat = response;
+          this.chatHistory = response.chatHistory;
+          //console.log("CHAT: ", this.chat);
+        }
+
+    ), 500});
+  }
+
+  public startChat(): void {
+    this.userService.startChat(this.chat.chatId).subscribe(
+      (response: Boolean) => {
+      }
+    );
+  }
+  
 }
+
+  

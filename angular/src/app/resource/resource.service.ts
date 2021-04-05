@@ -20,8 +20,6 @@ export class ResourceService {
         return this.http.get<Resource[]>(`${this.apiServerUrl}/home/`);
     }
 
-    
-
     public addResource(resource: Resource): Observable<Resource> {
         return this.http.post<Resource>(`${this.apiServerUrl}/home/`, resource);
     }

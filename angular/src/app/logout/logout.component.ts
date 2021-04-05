@@ -20,7 +20,7 @@ export class LogoutComponent implements OnInit {
   public deleteSession(): void {
     this.logoutService.deleteSession().subscribe(
       (response: void) => {
-        console.log(response);
+        //console.log(response);
         this.router.navigate(['/login']);
       },
       (error: HttpErrorResponse) => {

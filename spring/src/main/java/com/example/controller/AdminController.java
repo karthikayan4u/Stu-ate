@@ -25,20 +25,22 @@ public class AdminController {
     }
 
     @PostMapping("/verify")
-    public ResponseEntity<UserModel> userVerify(@RequestBody UserModel data){
-        UserModel verifiedUser = adminService.verifyUser(data);
-        return new ResponseEntity<>(verifiedUser, HttpStatus.CREATED);
+    public ResponseEntity<String> userVerify(@RequestBody UserModel data){
+        //UserModel verifiedUser = 
+        adminService.verifyUser(data);
+        return new ResponseEntity<>("User Verified", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{email}")
-    public ResponseEntity<?> UserDelete(@PathVariable("email") String email) {
+    public ResponseEntity<String> UserDelete(@PathVariable("email") String email) {
         adminService.deleteUser(email);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("User deleted", HttpStatus.OK);
     }
 
     @PutMapping("/resource/{data.resourseId}")
-    public ResponseEntity<ResourceModel> resourceEditSave(@RequestBody ResourceModel data){
-        ResourceModel updateresource = adminService.updateresource(data);
-        return new ResponseEntity<>(updateresource, HttpStatus.OK);
+    public ResponseEntity<String> resourceEditSave(@RequestBody ResourceModel data){
+        //ResourceModel updateresource = 
+        adminService.updateresource(data);
+        return new ResponseEntity<>("Updated Success", HttpStatus.OK);
     }
 }

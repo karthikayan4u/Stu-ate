@@ -26,5 +26,9 @@ public class LoginService {
     public void deleteSession(){ 
         Application.CURRENT_USER = "";
     }
+
+    public UserModel findByUserName(String username) {
+        return userRepo.findByUsername(username);
+    }
     
 }

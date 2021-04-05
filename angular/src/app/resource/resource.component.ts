@@ -43,7 +43,7 @@ export class ResourceComponent implements OnInit {
     this.resourceService.getResources().subscribe(
       (response: Resource[]) => {
         this.resources = response;
-        console.log(this.resources);
+        //console.log(this.resources);
       },
       (error: HttpErrorResponse) => {
         alert("No resources");
@@ -72,12 +72,12 @@ export class ResourceComponent implements OnInit {
     document.getElementById('add-resource-form')?.click(); 
     this.resourceService.addResource(addForm.value).subscribe(
       (response: Resource) => {
-        console.log(response);
+        //console.log(response);
         this.getResources();
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert("Cource add unsuccessful");//error.message);
         addForm.reset();
       }
     );
@@ -87,11 +87,11 @@ export class ResourceComponent implements OnInit {
   public onUpdateResource(resource: Resource): void{
     this.resourceService.updateResource(resource, this.user).subscribe(
       (response: Resource) => {
-        console.log(response);
+        //console.log(response);
         this.getResources();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert("Course Update unsuccessfull");//error.message);
       }
     );
   }
@@ -100,11 +100,11 @@ export class ResourceComponent implements OnInit {
   public onDeleteResource(resourceId: string): void{
     this.resourceService.deleteResource(resourceId).subscribe(
       (response: void) => {
-        console.log(response);
+        //console.log(response);
         this.getResources();
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        alert("Cource delete unsuccessfull");//error.message);
       }
     );
   }

@@ -1,6 +1,5 @@
-
-<mat-toolbar color="warn">
-    <span>E-Learning</span>
+<mat-toolbar style="background-color: #2ba7a1; padding-right: 0;">
+    <span style="color: rgb(253, 253, 253);">E-Learning</span>
   </mat-toolbar>
 <div class="row"> 
   <div class="main col-5" >
@@ -8,23 +7,23 @@
   </div>
   <form #addForm="ngForm" (ngSubmit)="onCheckUser(addForm)">
     <div class=mailpass>
-      <mat-form-field appearance='outline' color='warn'>
+      <mat-form-field appearance='outline' style="width: 40%;">
       <mat-label>Enter email</mat-label>
       <input type="email" ngModel name="email" class="form-control" id="email" placeholder="E-mail" required matInput>
     </mat-form-field>
     <div>
-    <mat-form-field appearance='outline' color='warn'>
+    <mat-form-field appearance='outline' style="width: 40%;">
       <mat-label>Enter Password</mat-label>
       <input type="password" ngModel name="password" class="form-control" id="password" placeholder="Password" required matInput autocomplete="off">
     </mat-form-field>
     </div>
     </div>
     <div class=login>
-      <button mat-raised-button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >login</button>
+      <button mat-raised-button [disabled]="addForm.invalid" type="submit" style="background-color:#2ba7a1; color: white;">Login</button>
     </div>
     
     <div class=sign>
-      <div>New User?<button type="button" id="add-login-form" class="btn btn-secondary" data-dismiss="modal" disableRipple mat-button><a routerLink="/signup" routerLinkActive=true>signup</a></button>
+      <div>New User?<button type="button"  id="add-login-form" data-dismiss="modal" disableRipple mat-button><a routerLink="/signup" routerLinkActive=true style="color: #155350; text-decoration: none;" >Signup</a></button>
       </div>
     </div>
   </form>

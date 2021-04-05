@@ -20,3 +20,30 @@ export interface Resource{
     active: boolean;
     verified: boolean;
 }
+
+export class ChatMessage{
+    primary_user: User;
+    secondary_user: User;
+    sender: string;
+    message: string;
+    chat: Chat;
+
+    constructor(primary_user: User,secondary_user: User, sender:string, message: string, chat: Chat){
+        this.primary_user = primary_user;
+        this.secondary_user = secondary_user;
+        this.message = message;
+        this.sender = sender;
+        this.chat = chat;
+    }
+}
+
+export interface Chat{
+    chatId: string;
+    primaryuser: User;
+    secondaryUser: User;
+    usersId: string;
+    status: Boolean;
+    lastSeen: Date;
+    chatHistory: String[];
+    resourceId: string;
+}

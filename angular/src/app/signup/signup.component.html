@@ -1,38 +1,48 @@
-<mat-toolbar color="warn">
-    <span>E-Learning</span>
+<mat-toolbar style="background-color: #2ba7a1;">
+    <span style="color: rgb(253, 253, 253);">E-Learning</span>
   </mat-toolbar>
   <div class="row"> 
     <div class="main col-5" style="text-align: center;" >
-      <div class="log">
-        <div class=mat-title>Signup</div>
+      <div class="log" style="color:#2ba7a1">
+        <div class=mat-title><h1>Signup</h1></div><!--<i class="fas fa-check"></i>-->
   </div>
+  
   <form #addForm="ngForm" (ngSubmit)="onAddUser(addForm)">
-    <div class=mail>
-      <mat-form-field floatLabel=never appearance='outline' color='warn'>
-      <mat-label>Enter email</mat-label>
-        <input matInput type="email" autocomplete="off" ngModel name="email" class="form-control" id="email" placeholder="E-mail" required>
-    </mat-form-field>
-    </div>
+    <label>Enter email</label>
+    <form class="form-inline">
+      <div class="form-group">
+        <input type="email" autocomplete="off" [(ngModel)]="email" name="email" class="form-control" placeholder="E-mail" required>
+      </div>
+      <button (click)="sendVerification()" class="btn btn-default" type="submit">Send</button>
+    </form>
+    <form *ngIf="sent" class="form-inline">
+      <div class="form-group">
+          <input type="text" [(ngModel)]="code" class="form-control" name="code" placeholder="Type your message..." required rows="3"> <br>
+      </div>
+      <button (click)="checkVerification()" class="btn btn-default" type="submit">Verify</button>
+  </form>
+  <input type="hidden" ngModel="{{email}}" name="email" class="form-control" id="email" placeholder="Email" required>
+    
   <div class=mail>
-      <mat-form-field floatLabel=never appearance='outline' color='warn'>
+      <mat-form-field floatLabel=never appearance='outline' style="width: 40%;">
       <mat-label>Enter Username</mat-label>
           <input matInput type="text" ngModel name="username" class="form-control" id="username" placeholder="Username" required>
       </mat-form-field>
   </div>
   <div class=mail>
-      <mat-form-field floatLabel=never appearance='outline' color='warn'>
+      <mat-form-field floatLabel=never appearance='outline' style="width: 40%;">
           <mat-label>Enter Mobilenumber</mat-label>
           <input matInput type="text" ngModel name="mobileNumber" class="form-control" id="mobileNumber" placeholder="Mobile Number" required>
       </mat-form-field>
   </div>
   <div class=mail>
-      <mat-form-field appearance='outline' color='warn'>
+      <mat-form-field appearance='outline' style="width: 40%;">
           <mat-label>Enter Password</mat-label>
           <input matInput type="password" autocomplete="off">
       </mat-form-field>
   </div>
   <div class=mail>
-      <mat-form-field floatLabel=never appearance='outline' color='warn'>
+      <mat-form-field floatLabel=never appearance='outline' style="width: 40%;">
       <mat-label>Confirm password</mat-label>
         <input matInput type="password" ngModel name="password" class="form-control" id="password" placeholder="Password" required autocomplete="off">
         
@@ -50,12 +60,14 @@
         <input matInput type="text" ngModel name="role" class="form-control" id="role" placeholder="Role" required>
     </mat-form-field>
   </div>
+
+
     <div class=login>
-      <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Signup</button>
+      <button *ngIf="verified" [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Signup</button>
       
     </div>
     <div class=sign>
-      <div>Already a User?<button type="button" id="add-signup-form" class="btn btn-secondary" data-dismiss="modal" disableRipple mat-button><a class="anchor" routerLink="/login" routerLinkActive=true>Login</a></button>
+      <div>Already a User?<button type="button" id="add-signup-form" data-dismiss="modal" disableRipple mat-button><a routerLink="/login" routerLinkActive=true style="color: #155350; text-decoration: none;">Login</a></button>
       </div>
     </div>
   </form>

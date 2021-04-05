@@ -1,6 +1,6 @@
 <mat-toolbar  color="warn" class="navbar">
     <div>E-Learning</div>
-    <div *ngIf="user && user?.email === 'admin@email.com' && user?.password === 'admin'">
+    <div *ngIf="user?.email === 'admin@email.com' && user?.password === '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'">
       <a>Welcome Admin!</a>
         <button mat-button><a routerLink="/admindashboard" routerLinkActive=true>Home</a></button>
         <button mat-button><a routerLink="/resource" routerLinkActive=true>Course</a></button>
@@ -103,7 +103,7 @@
   </div>
   
   <!-- Notification for no resources -->
-  <div *ngIf="users?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+  <div *ngIf="users && users?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
   <div class="alert alert-info" role="alert">
     <h4 class="alert-heading">NO USERS!</h4>
     <p>No users were found.</p>
