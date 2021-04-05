@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit, ValueProvider } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router'
 import { HttpErrorResponse } from '@angular/common/http';
-
 import { UserService } from './user.service';
 import { User, Chat, Resource } from './user';
 import * as SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
+
 
 @Component({
   selector: 'app-user',

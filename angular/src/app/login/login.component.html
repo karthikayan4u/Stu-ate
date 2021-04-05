@@ -1,29 +1,30 @@
-<mat-toolbar style="background-color: #2ba7a1; padding-right: 0;">
-    <span style="color: rgb(253, 253, 253);">E-Learning</span>
+
+<mat-toolbar style="background-color: #2ba7a1; color: white; font-family: 'Roboto Condensed', sans-serif; ">
+    <span style="font-size: xx-large;">E-Learning</span>
   </mat-toolbar>
 <div class="row"> 
   <div class="main col-5" >
-    <div class="log"><div class=mat-title><h1>Login</h1></div>
+    <div class="log"><div class=mat-title><h1 style="font-size: xx-large; color:#2ba7a1">Login</h1></div>
   </div>
   <form #addForm="ngForm" (ngSubmit)="onCheckUser(addForm)">
     <div class=mailpass>
-      <mat-form-field appearance='outline' style="width: 40%;">
-      <mat-label>Enter email</mat-label>
-      <input type="email" ngModel name="email" class="form-control" id="email" placeholder="E-mail" required matInput>
+      <mat-form-field appearance='outline' style="width: 50%;">
+      <mat-label style="font-size: larger;">Enter email</mat-label>
+      <input type="email" ngModel name="email"  id="email" placeholder="E-mail" required matInput>
     </mat-form-field>
     <div>
-    <mat-form-field appearance='outline' style="width: 40%;">
-      <mat-label>Enter Password</mat-label>
-      <input type="password" ngModel name="password" class="form-control" id="password" placeholder="Password" required matInput autocomplete="off">
+    <mat-form-field appearance='outline' style="width: 50%;">
+      <mat-label style="font-size: larger;">Enter Password</mat-label>
+      <input type="password" ngModel name="password"  id="password" placeholder="Password" required matInput autocomplete="off">
     </mat-form-field>
     </div>
     </div>
     <div class=login>
-      <button mat-raised-button [disabled]="addForm.invalid" type="submit" style="background-color:#2ba7a1; color: white;">Login</button>
+      <button mat-raised-button [disabled]="addForm.invalid" type="submit" style="background-color: #2ba7a1; color: white; font-family: 'Roboto Condensed', sans-serif; font-size:larger;">login</button>
     </div>
     
     <div class=sign>
-      <div>New User?<button type="button"  id="add-login-form" data-dismiss="modal" disableRipple mat-button><a routerLink="/signup" routerLinkActive=true style="color: #155350; text-decoration: none;" >Signup</a></button>
+      <div>New User?<a routerLink="/signup" routerLinkActive=true><button mat-button type="button" id="add-login-form" data-dismiss="modal" disableRipple mat-button>signup</button></a>
       </div>
     </div>
   </form>
@@ -32,5 +33,6 @@
     <img src="assets\img\E_learning logo.jpg" alt="loading">
   </div>
 </div>
+
 
   
