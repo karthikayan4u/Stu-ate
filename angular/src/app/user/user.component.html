@@ -35,14 +35,12 @@
                 </div>
                 <div class="chat">
                     <div class="chat-header clearfix">
-                        <img alt="avatar" height="55px"
-                             src="https://rtfm.co.ua/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
-                             width="55px"/>
+                        <a (click)="onDeleteChat(chat.chatId)" class="btn btn-danger" data-dismiss="modal">Delete Chat<span class="sr-only">(current)</span></a>
                         <div class="chat-about">
                             <div class="chat-with">{{receiver?.username}}</div>
                             <div class="chat-num-messages"></div>
                         </div>
-                        <a (click)="onDeleteChat(chat.chatId)" class="btn btn-danger" data-dismiss="modal">Delete Chat<span class="sr-only">(current)</span></a>
+                        
                     </div> <!-- end chat-header -->
             
                     <div class="chat-history">
