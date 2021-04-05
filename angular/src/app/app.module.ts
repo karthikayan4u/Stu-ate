@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {  PdfViewerModule  } from  'ng2-pdf-viewer';
 import { LogoutComponent } from './logout/logout.component';
+import { YouTubePlayerModule } from '@angular/youtube-player';
 
 
 
@@ -29,7 +30,6 @@ import { LogoutComponent } from './logout/logout.component';
     UserComponent,
     ResourceComponent,
     LogoutComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -39,7 +39,8 @@ import { LogoutComponent } from './logout/logout.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    PdfViewerModule
+    PdfViewerModule,
+    YouTubePlayerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

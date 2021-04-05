@@ -71,13 +71,13 @@ export class ResourceComponent implements OnInit {
   public onAddResource(addForm: NgForm): void{
     document.getElementById('add-resource-form')?.click(); 
     this.resourceService.addResource(addForm.value).subscribe(
-      (response: Resource) => {
+      (response: String) => {
         //console.log(response);
         this.getResources();
         addForm.reset();
       },
       (error: HttpErrorResponse) => {
-        alert("Cource add unsuccessful");//error.message);
+        alert("Course add unsuccessful");//error.message);
         addForm.reset();
       }
     );
@@ -86,7 +86,7 @@ export class ResourceComponent implements OnInit {
   //update(edit) resource form
   public onUpdateResource(resource: Resource): void{
     this.resourceService.updateResource(resource, this.user).subscribe(
-      (response: Resource) => {
+      (response: String) => {
         //console.log(response);
         this.getResources();
       },
@@ -99,7 +99,7 @@ export class ResourceComponent implements OnInit {
   //delete resource
   public onDeleteResource(resourceId: string): void{
     this.resourceService.deleteResource(resourceId).subscribe(
-      (response: void) => {
+      (response: String) => {
         //console.log(response);
         this.getResources();
       },

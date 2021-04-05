@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit, ValueProvider } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router'
 import { HttpErrorResponse } from '@angular/common/http';
-
 import { UserService } from './user.service';
 import { User, Chat, Resource } from './user';
 import * as SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
+
 
 @Component({
   selector: 'app-user',
@@ -47,7 +47,7 @@ export class UserComponent implements OnInit, OnDestroy {
     setTimeout(()=>{
     this.getUsers();
   }, 100); 
-  if(this.user != null){
+  if(this.user!==null){
     this.connectToChat();
   }
   
@@ -112,9 +112,9 @@ export class UserComponent implements OnInit, OnDestroy {
       return new SockJS(this.url + '/Chat');
     });
     this.stompClient.reconnect_delay = 5000;
-    //console.log("connection started to chat..." + this.stompClient)
+    console.log("connection started to chat..." + this.stompClient)
     this.stompClient.connect({},  (frame: any) => {
-        //console.log("connected to: " + frame);
+        console.log("connected to: " + frame);
         this.stompClient.subscribe("/topic/messages/" + this.user.username, 
          (response: { body: string; }) => {
             //console.log("RECEIVED RESPONSE: " + response);
@@ -129,7 +129,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   public onDeleteChat(resourceId: string): void{
     this.userService.deleteChat(resourceId).subscribe(
-      (response: void) => {
+      (response: String) => {
         //console.log(response);
         this.chatHistory = [];
       },
@@ -192,7 +192,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   public startChat(): void {
     this.userService.startChat(this.chat.chatId).subscribe(
-      (response: Boolean) => {
+      (response: String) => {
       }
     );
   }

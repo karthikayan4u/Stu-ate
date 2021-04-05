@@ -7,7 +7,6 @@ import {Router} from "@angular/router";
 import { ResourceService } from '../resource/resource.service';
 import { User } from '../admin/admin';
 
-
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -15,6 +14,7 @@ import { User } from '../admin/admin';
 })
 
 export class SignupComponent implements OnInit {
+  
   public user!: User;
   code!: string;
   email!: string;

@@ -20,19 +20,19 @@ export class ResourceService {
         return this.http.get<Resource[]>(`${this.apiServerUrl}/home/`);
     }
 
-    public addResource(resource: Resource): Observable<Resource> {
-        return this.http.post<Resource>(`${this.apiServerUrl}/home/`, resource);
+    public addResource(resource: Resource): Observable<String> {
+        return this.http.post<String>(`${this.apiServerUrl}/home/`, resource);
     }
 
-    public updateResource(resource: Resource, user: User): Observable<Resource>{
+    public updateResource(resource: Resource, user: User): Observable<String>{
         if(user.password === 'admin' && user.email === 'admin@email.com'){
-            return this.http.put<Resource>(`${this.apiServerUrl}/admin/resource/${resource.resourceId}`, resource);
+            return this.http.put<String>(`${this.apiServerUrl}/admin/resource/${resource.resourceId}`, resource);
         }
-        return this.http.put<Resource>(`${this.apiServerUrl}/home/${resource.resourceId}`, resource);
+        return this.http.put<String>(`${this.apiServerUrl}/home/${resource.resourceId}`, resource);
     }
     //return type within Observable
-    public deleteResource(resourceId: string): Observable<void>{ 
-        return this.http.delete<void>(`${this.apiServerUrl}/home/${resourceId}`);
+    public deleteResource(resourceId: string): Observable<String>{ 
+        return this.http.delete<String>(`${this.apiServerUrl}/home/${resourceId}`);
     }
 
 }

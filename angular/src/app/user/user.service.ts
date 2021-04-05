@@ -31,15 +31,15 @@ export class UserService {
       return this.http.post<void>(`${this.apiServerUrl}/chat/saveChat/${Id}`,chat);
     }
 
-    public startChat(chatId: String): Observable<Boolean> {
-      return this.http.post<Boolean>(`${this.apiServerUrl}/chat/${chatId}`, chatId);
+    public startChat(chatId: String): Observable<String> {
+      return this.http.post<String>(`${this.apiServerUrl}/chat/${chatId}`, chatId);
     }
 
     public showChat(chatId: String): Observable<Chat> {
       return this.http.get<Chat>(`${this.apiServerUrl}/chat/${chatId}`);
     }
 
-    public deleteChat(chatId: String): Observable<void> {
-      return this.http.delete<void>(`${this.apiServerUrl}/chat/${chatId}`);
+    public deleteChat(chatId: String): Observable<String> {
+      return this.http.delete<String>(`${this.apiServerUrl}/chat/${chatId}`);
   }
 }

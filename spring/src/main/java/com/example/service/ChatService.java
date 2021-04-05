@@ -34,8 +34,8 @@ public class ChatService {
         chatRepo.save(chat);
     }
 
-    public ChatModel showChat(String chatId){
-        return chatRepo.findChatByChatId(chatId);
+    public List<ChatModel> showChat(String chatId){
+        return chatRepo.findChatListByChatId(chatId);
     }
 
     public void startChat(String chatId){

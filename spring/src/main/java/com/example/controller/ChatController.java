@@ -42,12 +42,12 @@ public class ChatController {
 	public ResponseEntity<String> startChat(@PathVariable("id") String id) {
 		chatService.startChat(id);
 		//System.out.println("/n/nCAME IN" + chatId);
-		return new ResponseEntity<>("Chat Started", HttpStatus.OK);
+		return new ResponseEntity<>("\"Chat Started\"", HttpStatus.OK);
 	}
 
 	@GetMapping("/chat/{id}")
-	public ResponseEntity<ChatModel> showChat(@PathVariable("id") String id, String nth) {
-		ChatModel chatModel= chatService.showChat(id);
+	public ResponseEntity<List<ChatModel>> showChat(@PathVariable("id") String id, String nth) {
+		List<ChatModel> chatModel= chatService.showChat(id);
 		return new ResponseEntity<>(chatModel, HttpStatus.OK);
 	}
 
@@ -60,13 +60,13 @@ public class ChatController {
 	@DeleteMapping("/chat/{id}")
     public ResponseEntity<String> deleteChatItem(@PathVariable("id") String id){
         chatService.deleteChat(id);
-        return new ResponseEntity<>("Chat Deleted", HttpStatus.OK);
+        return new ResponseEntity<>("\"Chat Deleted\"", HttpStatus.OK);
     }
 	
     @MessageMapping("/Chat/{to}")
     public void sendMessage(@DestinationVariable String to, MessageModel message) throws InterruptedException {
         //System.out.println("handling send message: " + message + message.getFromLogin() + " to: " + to);
         simpMessagingTemplate.convertAndSend("/topic/messages/"+ message.getFromLogin(), message);
-        simpMessagingTemplate.convertAndSend("/topic/messages/"+ to, message);
+        //simpMessagingTemplate.convertAndSend("/topic/messages/"+ to, message);
     }
 }

@@ -83,7 +83,7 @@ export class AdmindashboardComponent implements OnInit {
   //update(edit) resource form
   public onVerifyUser(user: User): void{
     this.adminService.verifyUser(user).subscribe(
-      (response: User) => {
+      (response: String) => {
         //console.log(response);
         this.getUsers();
       },
@@ -96,7 +96,7 @@ export class AdmindashboardComponent implements OnInit {
   //delete resource
   public onDeleteUser(userEmail: string): void{
     this.adminService.deleteUser(userEmail).subscribe(
-      (response: void) => {
+      (response: String) => {
         //console.log(response);
         this.getUsers();
       },

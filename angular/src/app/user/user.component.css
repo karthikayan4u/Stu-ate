@@ -26,3 +26,7 @@
 .input-container button{
     width: 90px;
 }
+.buttons{
+    background-color: #2ba7a1;
+    color:white;
+}

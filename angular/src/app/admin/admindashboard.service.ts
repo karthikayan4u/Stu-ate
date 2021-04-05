@@ -16,12 +16,12 @@ export class AdmindashboardService {
         return this.http.get<User[]>(`${this.apiServerUrl}/admin/`);
     }
 
-    public verifyUser(user: User): Observable<User> {
-        return this.http.post<User>(`${this.apiServerUrl}/admin/verify`, user);
+    public verifyUser(user: User): Observable<String> {
+        return this.http.post<String>(`${this.apiServerUrl}/admin/verify`, user);
     }
 
     //return type within Observable
-    public deleteUser(userEmail: string): Observable<void> { 
-        return this.http.delete<void>(`${this.apiServerUrl}/admin/delete/${userEmail}`);
+    public deleteUser(userEmail: string): Observable<String> { 
+        return this.http.delete<String>(`${this.apiServerUrl}/admin/delete/${userEmail}`);
     }
 }
