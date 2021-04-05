@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import java.util.Optional;
+import java.util.List;
 
 import com.example.model.ChatModel;
 import com.example.model.MessageModel;
@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,30 +21,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/chat")
+@RequestMapping("")
 public class ChatController {
 
 	@Autowired
-	public ChatService chatService;
-    private SimpMessagingTemplate simpMessagingTemplate;
+	public SimpMessagingTemplate simpMessagingTemplate;
 
-	@PostMapping("/saveChat")
-	public ResponseEntity<?> saveChat(@RequestBody String[] chat, @RequestBody String Id) {
+	@Autowired
+	public ChatService chatService;
+    
+
+	@PostMapping("/chat/saveChat/{Id}")
+	public ResponseEntity<?> saveChat(@RequestBody List<String> chat, @PathVariable("Id") String Id) {
 		chatService.saveChat(chat, Id);
+		System.out.println("/n/nCAME IN" + Id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@GetMapping("/showChat/{chatId}")
-	public Optional<ChatModel> showChat(@PathVariable String chatId) {
-		Optional<ChatModel> chatModel=chatService.showChat(chatId);
-		return chatModel;
+	@PostMapping("/chat/{chatId}")
+	public ResponseEntity<?> startChat(@PathVariable("chatId") String chatId) {
+		chatService.startChat(chatId);
+		System.out.println("/n/nCAME IN" + chatId);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@GetMapping("/chat/{chatId}")
+	public ResponseEntity<List<String>> showChat(@PathVariable("chatId") String chatId, String nth) {
+		List<String> chatModel=chatService.showChat(chatId);
+		return new ResponseEntity<>(chatModel, HttpStatus.OK);
+	}
 
-    @MessageMapping("/{to}")
+	@GetMapping("/chat/{prime}/{second}/{resourceId}")
+	public ResponseEntity<ChatModel> getChatId(@PathVariable("prime") String prime, @PathVariable("second") String second, @PathVariable("resourceId") String resourceId) {
+		ChatModel chatModel=chatService.getChat(prime, second, resourceId);
+		return new ResponseEntity<>(chatModel, HttpStatus.OK);
+	}
+
+	@DeleteMapping("/chat/{chatId}")
+    public ResponseEntity<?> chatDelete(@PathVariable("chatId") String chatId){
+        chatService.deleteChat(chatId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+	
+    @MessageMapping("/Chat/{to}")
     public void sendMessage(@DestinationVariable String to, MessageModel message) throws InterruptedException {
-        System.out.println("handling send message: " + message + " to: " + to);
+        System.out.println("handling send message: " + message + message.getFromLogin() + " to: " + to);
         simpMessagingTemplate.convertAndSend("/topic/messages/"+ message.getFromLogin(), message);
-        simpMessagingTemplate.convertAndSend("/topic/messages/"+ to, message);
+        //simpMessagingTemplate.convertAndSend("/topic/messages/"+ to, message);
     }
 }

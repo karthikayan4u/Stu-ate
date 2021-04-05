@@ -23,9 +23,23 @@ export class UserService {
         return this.http.get<User>(`${this.apiServerUrl}/home/user`);
     }
 
-    /*public getChat(primaryUser: String, creator: String, resourceId: String): Observable<Chat> {
-      return this.http.get<Chat>(`${this.apiServerUrl}/chat/${primaryUser}/${creator}/${resourceId}`);
-    }*/
+    public getChat(primaryUser: String, second: String, resourceId: String): Observable<Chat> {
+      return this.http.get<Chat>(`${this.apiServerUrl}/chat/${primaryUser}/${second}/${resourceId}`);
+    }
 
-  
+    public saveChat(chat: Array<String>, Id: String): Observable<void> {
+      return this.http.post<void>(`${this.apiServerUrl}/chat/saveChat/${Id}`,chat);
+    }
+
+    public startChat(chatId: String): Observable<Boolean> {
+      return this.http.post<Boolean>(`${this.apiServerUrl}/chat/${chatId}`, chatId);
+    }
+
+    public showChat(chatId: String): Observable<Array<String>> {
+      return this.http.get<Array<String>>(`${this.apiServerUrl}/chat/${chatId}`);
+    }
+
+    public deleteChat(chatId: String): Observable<void> {
+      return this.http.delete<void>(`${this.apiServerUrl}/chat/${chatId}`);
+  }
 }

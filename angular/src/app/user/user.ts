@@ -24,11 +24,11 @@ export interface Resource{
 export class ChatMessage{
     primary_user: User;
     secondary_user: User;
-    sender: String;
+    sender: string;
     message: string;
     chat: Chat;
 
-    constructor(primary_user: User,secondary_user: User, sender:String, message: string, chat: Chat){
+    constructor(primary_user: User,secondary_user: User, sender:string, message: string, chat: Chat){
         this.primary_user = primary_user;
         this.secondary_user = secondary_user;
         this.message = message;
@@ -38,10 +38,12 @@ export class ChatMessage{
 }
 
 export interface Chat{
-    chatId: String;
+    chatId: string;
     primaryuser: User;
     secondaryUser: User;
-    usersId: String;
+    usersId: string;
     status: Boolean;
     lastSeen: Date;
+    chatHistory: String[];
+    resourceId: string;
 }
