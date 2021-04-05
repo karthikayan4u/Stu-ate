@@ -1,7 +1,7 @@
 package com.example.model;
 
 import java.util.Date;
-import java.util.List;
+
 
 import javax.persistence.*;
 
@@ -15,23 +15,22 @@ public class ChatModel {
     @Column(nullable = false, updatable = false)
     private String chatId;
     //private Long msgId;//
+    private String usersId;
+    @Column(length = 5000)
     private UserModel primaryUser;
+    @Column(length = 5000)
     private UserModel secondaryUser;
-    @Column(name = "chatHistory")
-    @ElementCollection(targetClass = String.class)
-    private List<String> chatHistory;
     private Boolean status;
     private Date lastSeen;
 
     public ChatModel() {} 
 
-    public ChatModel(String chatId, UserModel primaryUser, UserModel secondaryUser,List<String> chatHistory, Boolean status, Date lastSeen) {
-        this.chatId = chatId;
+    public ChatModel(UserModel primaryUser, UserModel secondaryUser, String usersId, Boolean status, Date lastSeen) {
         this.primaryUser = primaryUser;
         this.secondaryUser = secondaryUser;
-        this.chatHistory = chatHistory;
         this.status = status;
-        this.lastSeen = lastSeen;
+        this.usersId = usersId;
+        this.lastSeen = null;
     }
 
     public String getChatId() {
@@ -39,6 +38,13 @@ public class ChatModel {
     }
     public void setChatId(String chatId) {
         this.chatId = chatId;
+    }
+
+    public String getUsersId() {
+        return usersId;
+    }
+    public void setUsersId(String usersId) {
+        this.usersId = usersId;
     }
     public UserModel getPrimaryUser() {
         return primaryUser;
@@ -52,12 +58,7 @@ public class ChatModel {
     public void setSecondaryUser(UserModel secondaryUser) {
         this.secondaryUser = secondaryUser;
     }
-    public List<String> getChatHistory() {
-        return chatHistory;
-    }
-    public void setChatHistory(List<String> chatHistory) {
-        this.chatHistory = chatHistory;
-    }
+    
     public boolean getStatus() {
         return status;
     }
@@ -74,7 +75,8 @@ public class ChatModel {
 
     @Override
     public String toString() {
-        return "ChatModel [chatHistory=" + chatHistory + ", chatId=" + chatId + ", primaryUser=" + primaryUser
+        return "ChatModel [chatId=" + chatId + ", UsersId=" + usersId
+        + " primaryUser=" + primaryUser
                 + ", secondaryUser=" + secondaryUser + ", status=" + status + "]";
     }
     
