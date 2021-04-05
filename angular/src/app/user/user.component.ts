@@ -25,7 +25,7 @@ export class UserComponent implements OnInit, OnDestroy {
   public receiver!: User;
   public chat!: Chat;
   message!: string;
-  url = 'http://localhost:8080';
+  url = 'https://8080-edabbbfddaeafafcbacaceeeeefbdffc.examlyiopb.examly.io';
   stompClient: any;
 
   constructor(public userService: UserService,private router: Router, private actroute: ActivatedRoute) { }
@@ -43,10 +43,10 @@ export class UserComponent implements OnInit, OnDestroy {
     this.getresource();
     setTimeout(()=>{
     this.getUser();
-  }, 100);
+  }, 500);
     setTimeout(()=>{
     this.getUsers();
-  }, 100); 
+  }, 500); 
   if(this.user!==null){
     this.connectToChat();
   }
@@ -72,6 +72,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService.getUsers().subscribe(
       (response: User[]) => {
         this.users = response;
+        
         //console.log(this.users);
       },
       (error: HttpErrorResponse) => {
@@ -112,9 +113,9 @@ export class UserComponent implements OnInit, OnDestroy {
       return new SockJS(this.url + '/Chat');
     });
     this.stompClient.reconnect_delay = 5000;
-    console.log("connection started to chat..." + this.stompClient)
+    //console.log("connection started to chat..." + this.stompClient)
     this.stompClient.connect({},  (frame: any) => {
-        console.log("connected to: " + frame);
+        //console.log("connected to: " + frame);
         this.stompClient.subscribe("/topic/messages/" + this.user.username, 
          (response: { body: string; }) => {
             //console.log("RECEIVED RESPONSE: " + response);
@@ -187,7 +188,7 @@ export class UserComponent implements OnInit, OnDestroy {
           //console.log("CHAT: ", this.chat);
         }
 
-    ), 500});
+    ), 1000});
   }
 
   public startChat(): void {

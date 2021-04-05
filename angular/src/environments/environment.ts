@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:8080', //backend server port
+  apiBaseUrl: 'https://8080-edabbbfddaeafafcbacaceeeeefbdffc.examlyiopb.examly.io/', //backend server port
 };
 
 /*
