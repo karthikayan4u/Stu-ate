@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   public onCheckUser(addForm: NgForm): void{
     document.getElementById('add-login-form')?.click(); 
     this.loginService.checkUser(addForm.value).subscribe(
-      (response: Login) => {
+      (response: Boolean) => {
         addForm.reset();
         this.getUser();
         setTimeout(() => { if((this.user.password === '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918') && (this.user.email === 'admin@email.com')){

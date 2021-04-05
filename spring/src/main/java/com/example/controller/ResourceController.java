@@ -42,20 +42,20 @@ public class ResourceController {
     public ResponseEntity<String> resourceSave(@RequestBody ResourceModel data){
         //ResourceModel newresource = 
         resourceService.addresource(data);
-        return new ResponseEntity<>("Added Successfully", HttpStatus.CREATED);
+        return new ResponseEntity<>("\"Added Successfully\"", HttpStatus.CREATED);
     }
 
     @PutMapping("/{data.resourseId}")
     public ResponseEntity<String> resourceEditSave(@RequestBody ResourceModel data){
         //ResourceModel updateresource = 
         resourceService.updateresource(data);
-        return new ResponseEntity<>("Updated Success", HttpStatus.OK);
+        return new ResponseEntity<>("\"Updated Success\"", HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> resourceDelete(@PathVariable("id") String id){
         resourceService.deleteResource(id);
-        return new ResponseEntity<>("Resource Deleted", HttpStatus.OK);
+        return new ResponseEntity<>("\"Resource Deleted\"", HttpStatus.OK);
     }
     
     

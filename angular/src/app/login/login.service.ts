@@ -12,7 +12,7 @@ export class LoginService {
   private apiServerUrl = environment.apiBaseUrl;
     constructor(private http: HttpClient){}
 
-    public checkUser(login: Login): Observable<Login> {
-        return this.http.post<Login>(`${this.apiServerUrl}/login/`, login);
+    public checkUser(login: Login): Observable<Boolean> {
+        return this.http.post<Boolean>(`${this.apiServerUrl}/login/`, login);
     }
 }
