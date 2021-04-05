@@ -2,7 +2,6 @@ package com.example.service;
 
 import java.util.List;
 import java.util.Date;
-import java.util.stream.Stream;
 
 import com.example.model.ChatModel;
 import com.example.model.UserModel;
@@ -29,16 +28,14 @@ public class ChatService {
     public void saveChat(List<String> cur_chat, String Id){
         ChatModel chat = chatRepo.findChatByChatId(Id);
         Date date = new Date();
-        //List<String> chat_hist = (List<String>) Stream.concat(chat.getChatHistory().stream(), cur_chat.stream());
-        System.out.println(cur_chat);
         chat.setChatHistory(cur_chat);
         chat.setLastSeen(date);
         chat.setStatus(false);
         chatRepo.save(chat);
     }
 
-    public List<String> showChat(String chatId){
-        return chatRepo.findChatByChatId(chatId).getChatHistory();
+    public ChatModel showChat(String chatId){
+        return chatRepo.findChatByChatId(chatId);
     }
 
     public void startChat(String chatId){
@@ -54,34 +51,22 @@ public class ChatService {
     }
 
     public ChatModel getChat(String user, String creator, String resourceId){
-        System.out.println("\n");
-        System.out.println("Start");
-        System.out.println("\n");
+        
         ChatModel chat = chatRepo.findChatByResourceId(user + creator + resourceId);
-        System.out.println("\n");
-        System.out.println(chat);
-        System.out.println("\n");
+        
         if(chat == null){
             chat = new ChatModel();
-            System.out.println("\n");
             UserModel u = userRepo.findByEmail(user);
             UserModel c = userRepo.findByEmail(creator);
-            System.out.println("\nUSERMODEL");
-            System.out.println(u);
-            System.out.println(c);
-            System.out.println("\n");
-            //System.out.println(userRepo.findByEmail(creator));
+            
+            
             chat.setPrimaryUser(c);
             chat.setSecondaryUser(u);
             chat.setStatus(true);
             chat.setResourceId(user + creator + resourceId);
             Date date = new Date();
             chat.setLastSeen(date);
-            System.out.println("\n");
-            System.out.println("Chat");
-            System.out.println(chat);
             chatRepo.save(chat);
-            System.out.println(chat);
         }
         return chat;
     }

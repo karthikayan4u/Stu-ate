@@ -34,20 +34,20 @@ public class ChatController {
 	@PostMapping("/chat/saveChat/{Id}")
 	public ResponseEntity<?> saveChat(@RequestBody List<String> chat, @PathVariable("Id") String Id) {
 		chatService.saveChat(chat, Id);
-		System.out.println("/n/nCAME IN" + Id);
+		//System.out.println("/n/nCAME IN" + Id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PostMapping("/chat/{chatId}")
-	public ResponseEntity<?> startChat(@PathVariable("chatId") String chatId) {
-		chatService.startChat(chatId);
-		System.out.println("/n/nCAME IN" + chatId);
-		return new ResponseEntity<>(HttpStatus.OK);
+	@PostMapping("/chat/{id}")
+	public ResponseEntity<String> startChat(@PathVariable("id") String id) {
+		chatService.startChat(id);
+		//System.out.println("/n/nCAME IN" + chatId);
+		return new ResponseEntity<>("Chat Started", HttpStatus.OK);
 	}
 
-	@GetMapping("/chat/{chatId}")
-	public ResponseEntity<List<String>> showChat(@PathVariable("chatId") String chatId, String nth) {
-		List<String> chatModel=chatService.showChat(chatId);
+	@GetMapping("/chat/{id}")
+	public ResponseEntity<ChatModel> showChat(@PathVariable("id") String id, String nth) {
+		ChatModel chatModel= chatService.showChat(id);
 		return new ResponseEntity<>(chatModel, HttpStatus.OK);
 	}
 
@@ -57,16 +57,16 @@ public class ChatController {
 		return new ResponseEntity<>(chatModel, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/chat/{chatId}")
-    public ResponseEntity<?> chatDelete(@PathVariable("chatId") String chatId){
-        chatService.deleteChat(chatId);
-        return new ResponseEntity<>(HttpStatus.OK);
+	@DeleteMapping("/chat/{id}")
+    public ResponseEntity<String> deleteChatItem(@PathVariable("id") String id){
+        chatService.deleteChat(id);
+        return new ResponseEntity<>("Chat Deleted", HttpStatus.OK);
     }
 	
     @MessageMapping("/Chat/{to}")
     public void sendMessage(@DestinationVariable String to, MessageModel message) throws InterruptedException {
-        System.out.println("handling send message: " + message + message.getFromLogin() + " to: " + to);
+        //System.out.println("handling send message: " + message + message.getFromLogin() + " to: " + to);
         simpMessagingTemplate.convertAndSend("/topic/messages/"+ message.getFromLogin(), message);
-        //simpMessagingTemplate.convertAndSend("/topic/messages/"+ to, message);
+        simpMessagingTemplate.convertAndSend("/topic/messages/"+ to, message);
     }
 }

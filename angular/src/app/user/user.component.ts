@@ -31,7 +31,7 @@ export class UserComponent implements OnInit, OnDestroy {
   constructor(public userService: UserService,private router: Router, private actroute: ActivatedRoute) { }
 
   ngOnDestroy(): void {
-    console.log(this.chatHistory);
+    //console.log(this.chatHistory);
     this.saveChat(this.chatHistory, this.chat.chatId);
     setTimeout(() =>{
 
@@ -60,7 +60,7 @@ export class UserComponent implements OnInit, OnDestroy {
         this.currentuser = response;
         this.video = this.currentuser.resourceLink;
         this.pdf = this.currentuser.resourcepdfLink;
-        console.log(this.currentuser);
+        //console.log(this.currentuser);
       },
       (error: HttpErrorResponse) => {
         alert("Course not found");
@@ -72,7 +72,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService.getUsers().subscribe(
       (response: User[]) => {
         this.users = response;
-        console.log(this.users);
+        //console.log(this.users);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -100,24 +100,24 @@ export class UserComponent implements OnInit, OnDestroy {
     this.userService.getUser().subscribe(
       (response: User) => {
         this.user = response;
-        console.log("User  " + this.user);
+        //console.log("User  " + this.user);
       }
     );
   }
 
 
   public connectToChat() {
-    console.log("connecting to chat...")
+    //console.log("connecting to chat...")
     this.stompClient = Stomp.over(() =>{
       return new SockJS(this.url + '/Chat');
     });
     this.stompClient.reconnect_delay = 5000;
-    console.log("connection started to chat..." + this.stompClient)
+    //console.log("connection started to chat..." + this.stompClient)
     this.stompClient.connect({},  (frame: any) => {
-        console.log("connected to: " + frame);
+        //console.log("connected to: " + frame);
         this.stompClient.subscribe("/topic/messages/" + this.user.username, 
          (response: { body: string; }) => {
-            console.log("RECEIVED RESPONSE: " + response);
+            //console.log("RECEIVED RESPONSE: " + response);
             let data = JSON.parse(response.body);
             this.response = data.message;
             this.sender = data.fromLogin;
@@ -130,7 +130,7 @@ export class UserComponent implements OnInit, OnDestroy {
   public onDeleteChat(resourceId: string): void{
     this.userService.deleteChat(resourceId).subscribe(
       (response: void) => {
-        console.log(response);
+        //console.log(response);
         this.chatHistory = [];
       },
       (error: HttpErrorResponse) => {
@@ -142,10 +142,11 @@ export class UserComponent implements OnInit, OnDestroy {
   public saveChat(chat: Array<String>, chatId: string): void{
     this.userService.saveChat(chat, chatId).subscribe(
       (response: void) => {
-        console.log(response);
+        //console.log(response);
       }
     );
   }
+  
   
 
   public sendMsg() {
@@ -183,7 +184,7 @@ export class UserComponent implements OnInit, OnDestroy {
         (response: Chat) => {
           this.chat = response;
           this.chatHistory = response.chatHistory;
-          console.log("CHAT: ", this.chat);
+          //console.log("CHAT: ", this.chat);
         }
 
     ), 500});

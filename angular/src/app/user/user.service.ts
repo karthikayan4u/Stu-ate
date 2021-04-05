@@ -35,8 +35,8 @@ export class UserService {
       return this.http.post<Boolean>(`${this.apiServerUrl}/chat/${chatId}`, chatId);
     }
 
-    public showChat(chatId: String): Observable<Array<String>> {
-      return this.http.get<Array<String>>(`${this.apiServerUrl}/chat/${chatId}`);
+    public showChat(chatId: String): Observable<Chat> {
+      return this.http.get<Chat>(`${this.apiServerUrl}/chat/${chatId}`);
     }
 
     public deleteChat(chatId: String): Observable<void> {

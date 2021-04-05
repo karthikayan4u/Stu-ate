@@ -12,7 +12,6 @@ import java.util.Arrays;
 @SpringBootApplication
 public class Application {
 	public static String CURRENT_USER = "";
-	public static String CURRENT_RESOURCE = "";
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}

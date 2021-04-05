@@ -6,13 +6,23 @@
       <div class="log" style="color:#2ba7a1">
         <div class=mat-title><h1>Signup</h1></div><!--<i class="fas fa-check"></i>-->
   </div>
+  
   <form #addForm="ngForm" (ngSubmit)="onAddUser(addForm)">
-    <div class=mail >
-      <mat-form-field floatLabel=never appearance='outline' style="width: 40%;">
-      <mat-label>Enter email</mat-label>
-        <input matInput type="email" autocomplete="off" ngModel name="email" class="form-control" id="email" placeholder="E-mail" required>
-    </mat-form-field>
-    </div>
+    <label>Enter email</label>
+    <form class="form-inline">
+      <div class="form-group">
+        <input type="email" autocomplete="off" [(ngModel)]="email" name="email" class="form-control" placeholder="E-mail" required>
+      </div>
+      <button (click)="sendVerification()" class="btn btn-default" type="submit">Send</button>
+    </form>
+    <form *ngIf="sent" class="form-inline">
+      <div class="form-group">
+          <input type="text" [(ngModel)]="code" class="form-control" name="code" placeholder="Type your message..." required rows="3"> <br>
+      </div>
+      <button (click)="checkVerification()" class="btn btn-default" type="submit">Verify</button>
+  </form>
+  <input type="hidden" ngModel="{{email}}" name="email" class="form-control" id="email" placeholder="Email" required>
+    
   <div class=mail>
       <mat-form-field floatLabel=never appearance='outline' style="width: 40%;">
       <mat-label>Enter Username</mat-label>
@@ -50,8 +60,10 @@
         <input matInput type="text" ngModel name="role" class="form-control" id="role" placeholder="Role" required>
     </mat-form-field>
   </div>
+
+
     <div class=login>
-      <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Signup</button>
+      <button *ngIf="verified" [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Signup</button>
       
     </div>
     <div class=sign>

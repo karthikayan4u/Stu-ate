@@ -16,6 +16,10 @@ import { User } from '../admin/admin';
 
 export class SignupComponent implements OnInit {
   public user!: User;
+  code!: string;
+  email!: string;
+  public verified!: Boolean;
+  public sent!: Boolean;
   constructor(private resourceService: ResourceService,private signupService: SignupService,
     private router: Router) { }
 
@@ -34,19 +38,56 @@ export class SignupComponent implements OnInit {
     );
   }
 
+  public sendVerification(): void {
+    this.signupService.sendVerification(this.email).subscribe(
+      (response: Boolean) => {
+        if(response){
+          alert("Verification code sent Successfully")
+          this.sent =true;
+        }
+        else{
+          alert("Email-Id already exists/invalid!");
+        }
+        
+      },
+      (error: HttpErrorResponse) => {
+        alert("Email-Id already exists/invalid!");
+      }
+    );
+  }
+
+  public checkVerification(): void {
+    this.signupService.checkVerification(this.code).subscribe(
+      (response: Boolean) => {
+        if(response){
+          this.verified = true;
+          alert("E-Mail Verification Successfull")
+        }
+        else{
+          alert("E-Mail Verification UnSuccessfull")
+        }
+        
+      },
+      (error: HttpErrorResponse) => {
+        alert("E-Mail Verification UnSuccessfull");
+      }
+    );
+  }
+
   //add resource form
   public onAddUser(addForm: NgForm): void{
     document.getElementById('add-signup-form')?.click(); 
     this.signupService.addUser(addForm.value).subscribe(
       (response: Signup) => {
-        addForm.reset();this.getUser();
+        addForm.reset();
+        this.getUser();
         setTimeout(() => {if((this.user.password === '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918') && (this.user.email === 'admin@email.com')){
           this.router.navigate(['/admindashboard']);
         }
         else{
           this.router.navigate(['/resource']);
         }
-      }, 200)},
+      }, 500)},
       (error: HttpErrorResponse) => {
         alert("User E-mail already exists!");
         addForm.reset();
@@ -55,3 +96,4 @@ export class SignupComponent implements OnInit {
   }
 
 }
+
