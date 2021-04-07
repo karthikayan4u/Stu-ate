@@ -32,7 +32,9 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     //console.log(this.chatHistory);
+    if(this.chat){
     this.saveChat(this.chatHistory, this.chat.chatId);
+    }
     setTimeout(() =>{
 
     }, 500);
