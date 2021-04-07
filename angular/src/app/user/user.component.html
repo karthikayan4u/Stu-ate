@@ -2,7 +2,7 @@
     <div style="color: rgb(255, 255, 255);">E-Learning</div>
     <div>
         <button mat-button style="background-color: rgb(255, 255, 255);"><a routerLink="/resource" routerLinkActive=true style="background-color: rgb(255, 255, 255); text-decoration: none;">Course</a></button>
-        <button mat-button style="background-color: rgb(255, 255, 255);"><a routerLink="/login" routerLinkActive=true style="background-color: rgb(255, 255, 255); text-decoration: none;">Logout</a></button>
+        <button *ngIf="user" mat-button style="background-color: rgb(255, 255, 255);"><a routerLink="/logout" routerLinkActive=true style="background-color: rgb(255, 255, 255); text-decoration: none;">Logout</a></button>
 </div>
 </mat-toolbar>
 <div class="row">
