@@ -49,8 +49,8 @@ public class SignupController {
         //get Session
         Session session = Session.getDefaultInstance(props,    
          new javax.mail.Authenticator() {    
-         protected PasswordAuthentication getPasswordAuthentication() {   
-         return new PasswordAuthentication("karthikayanmailsamy@gmail.com", "evrytnghpnsfrare");
+         protected PasswordAuthentication getPasswordAuthentication() {    
+         return new PasswordAuthentication("sanjive125@gmail.com", "sanjive@1207");
          }    
         });    
         //compose message    
