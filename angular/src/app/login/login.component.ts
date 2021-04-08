@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
       (error: HttpErrorResponse) => {
         alert("Invalid Credentials");
         addForm.reset();
+        this.router.navigate(['/login']);
       }
     );
   }

@@ -67,6 +67,6 @@ public class ChatController {
     public void sendMessage(@DestinationVariable String to, MessageModel message) throws InterruptedException {
         //System.out.println("handling send message: " + message + message.getFromLogin() + " to: " + to);
         simpMessagingTemplate.convertAndSend("/topic/messages/"+ message.getFromLogin(), message);
-        //simpMessagingTemplate.convertAndSend("/topic/messages/"+ to, message);
+    	simpMessagingTemplate.convertAndSend("/topic/messages/"+ to, message);
     }
 }

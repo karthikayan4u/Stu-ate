@@ -32,10 +32,9 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     //console.log(this.chatHistory);
+    if(this.chat){
     this.saveChat(this.chatHistory, this.chat.chatId);
-    setTimeout(() =>{
-
-    }, 500);
+    }
   }
 
 
@@ -150,6 +149,7 @@ export class UserComponent implements OnInit, OnDestroy {
   
 
   public sendMsg() {
+    
     this.stompClient.send("/app/Chat/" + this.receiver.username, {}, JSON.stringify({
         fromLogin: this.user.username,
         message: this.message
@@ -159,7 +159,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
 
   public selectreceiver(selectedreceiver: User): void {
-    console.log("selected user: " + selectedreceiver.username);
+    //console.log("selected user: " + selectedreceiver.username);
     this.receiver = selectedreceiver;
     if(this.chat!= null && this.chatHistory.length != 0){
       this.saveChat(this.chatHistory, this.chat.chatId);

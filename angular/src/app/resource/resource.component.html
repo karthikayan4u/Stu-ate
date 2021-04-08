@@ -23,7 +23,7 @@
   </div>
   <div class="container" id="main-container">
   <div class="row">
-    <div *ngFor="let resource of resources" class="col-md-6 col-xl-3">
+    <div *ngFor="let resource of resources" class="col-md-6 col-xl-4">
          <div class="card m-b-30">
             <a routerLink="/user/{{resource?.resourceId}}" routerLinkActive=true>
           <div class="card-body row">
@@ -48,7 +48,7 @@
                <mat-icon *ngIf="resource?.active">visibility</mat-icon>
                <mat-icon *ngIf="!resource?.active">visibility_off</mat-icon>
             </div>
-             <div class="float-right btn-group btn-group-sm">
+             <div *ngIf="resource?.createdBy?.username === user?.username || user?.role === 'admin'"class="float-right btn-group btn-group-sm">
                 <a *ngIf="user?.role === 'professor' || user?.role === 'admin'" (click)="onOpenModal(resource, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
                 <a *ngIf="user?.role === 'professor'" (click)="onOpenModal(resource, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
                 

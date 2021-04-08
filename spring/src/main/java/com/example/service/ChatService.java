@@ -58,8 +58,6 @@ public class ChatService {
             chat = new ChatModel();
             UserModel u = userRepo.findByEmail(user);
             UserModel c = userRepo.findByEmail(creator);
-            
-            
             chat.setPrimaryUser(c);
             chat.setSecondaryUser(u);
             chat.setStatus(true);

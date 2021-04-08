@@ -2,25 +2,23 @@
     <div style="color: rgb(255, 255, 255);">E-Learning</div>
     <div>
         <button mat-button style="background-color: rgb(255, 255, 255);"><a routerLink="/resource" routerLinkActive=true style="background-color: rgb(255, 255, 255); text-decoration: none;">Course</a></button>
-        <button mat-button style="background-color: rgb(255, 255, 255);"><a routerLink="/login" routerLinkActive=true style="background-color: rgb(255, 255, 255); text-decoration: none;">Logout</a></button>
+        <button *ngIf="user" mat-button style="background-color: rgb(255, 255, 255);"><a routerLink="/logout" routerLinkActive=true style="background-color: rgb(255, 255, 255); text-decoration: none;">Logout</a></button>
 </div>
 </mat-toolbar>
 <div class="row">
     <div class="col-8">
         <youtube-player [width]="1000" [height]="600" videoId="{{video}}" style="margin-left: 2rem; margin-top: 2rem;"></youtube-player>
-<div class="video-url" style="text-align: center;">
-    <div class="video-url" style="text-align: center;">
-        Video-URL:<a href="https://www.youtube.com/watch?v={{video}}"><h2>https://www.youtube.com/watch?v={{video}}</h2></a>
-    </div>
-</div>
-<div>
-    <!--<iframe width="1000" height="500" src="https://carnegieendowment.org/files/CEIP_Khosla_Report_FNL_w_covers.pdf" style="margin-left: 2rem; margin-top: 1rem;"></iframe>-->
-    <div class="pdf-url" style="text-align: center;">
-       PDF-URL:<button mat-button><a href="{{pdf}}"><h2>{{pdf}}</h2></a></button>
-    </div>
-</div>
+        <div class="video-url" style="text-align: center;">Video-URL:<a href="https://www.youtube.com/watch?v={{video}}"><h2>https://www.youtube.com/watch?v={{video}}</h2></a>
+        </div>
+        <div>
+            <!--<iframe width="1000" height="500" src="https://carnegieendowment.org/files/CEIP_Khosla_Report_FNL_w_covers.pdf" style="margin-left: 2rem; margin-top: 1rem;"></iframe>-->
+            <div class="pdf-url" style="text-align: center;">
+            PDF-URL:<button mat-button><a href="{{pdf}}"><h2>{{pdf}}</h2></a></button>
+            </div>
+        </div>
     </div>
     <div *ngIf="user" class="col-4" style="padding-top: 2%;">
+        <div style="color: rgb(19, 16, 16);"><strong>CHAT</strong></div>
         <div class="chatbox">
             <div class="container clearfix">
                 <div class="people-list" id="people-list">
@@ -29,20 +27,19 @@
                         <input type="search" (ngModelChange)="searchusers(key.value)" #key="ngModel" ngModel
                          name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search users..." required>
                         </form></div>
-                     <div *ngFor="let user of users" class="col-md-6 col-xl-3">
-                        <a (click)="selectreceiver(user)" data-dismiss="modal">{{user?.username}}<span class="sr-only">(current)</span></a>
+                     <div *ngFor="let user of users" class="col-md-6 col-xl-6">
+                        <a (click)="selectreceiver(user)" data-dismiss="modal">{{user?.username}} <mat-icon *ngIf="user?.active">visibility</mat-icon>
+                            <mat-icon *ngIf="!user?.active">visibility_off</mat-icon><span class="sr-only">(current)</span></a>
+                         
                     </div>
                 </div>
                 <div class="chat">
                     <div class="chat-header clearfix">
-                        <img alt="avatar" height="55px"
-                             src="https://rtfm.co.ua/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png"
-                             width="55px"/>
+                        
                         <div class="chat-about">
-                            <div class="chat-with">{{receiver?.username}}</div>
-                            <div class="chat-num-messages"></div>
+                            <div class="chat-with"><strong>{{receiver?.username}}  </strong><a *ngIf="receiver" (click)="onDeleteChat(chat.chatId)" class="btn btn-danger" data-dismiss="modal">Delete Chat<span class="sr-only">(current)</span></a></div>
                         </div>
-                        <a (click)="onDeleteChat(chat.chatId)" class="btn btn-danger" data-dismiss="modal">Delete Chat<span class="sr-only">(current)</span></a>
+                        
                     </div> <!-- end chat-header -->
             
                     <div class="chat-history">
@@ -52,11 +49,12 @@
             
                     </div> <!-- end chat-history -->
             
-                    <div class="chat-message clearfix">
+                    <div *ngIf="receiver" class="chat-message clearfix">
                         <form class="form-inline">
                             <div class="form-group">
-                                <input type="text" [(ngModel)]="message" class="form-control" name="message" placeholder="Type your message..." required rows="3"> <br>
+                                <input type="text" [(ngModel)]="message" id="message" class="form-control" name="message" placeholder="Type your message..." required rows="3"> <br>
                             </div>
+                            
                             <button (click)="sendMsg()" class="btn btn-default" type="submit">Send</button>
                         </form>
             
@@ -65,3 +63,6 @@
                 </div> <!-- end chat -->
             
             </div> <!-- end container -->
+        </div>
+    </div>
+</div>

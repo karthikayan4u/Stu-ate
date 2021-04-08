@@ -5,7 +5,7 @@
       <span>
         <a routerLink="/admindashboard" routerLinkActive=true><button mat-button class=buttons>Home</button></a>
         <a routerLink="/resource" routerLinkActive=true><button mat-button class=buttons >Course</button></a>
-        <a routerLink="/login" routerLinkActive=true><button mat-button class=buttons>Logout</button></a>
+        <a routerLink="/logout" routerLinkActive=true><button mat-button class=buttons>Logout</button></a>
       </span>
 </div>
 </mat-toolbar>
@@ -18,7 +18,7 @@
 
 <div class="container" id="main-container">
   <div class="row">
-    <div *ngFor="let user of users" class="col-md-6 col-xl-3">
+    <div *ngFor="let user of users" class="col-md-6 col-xl-4">
        <div class="card m-b-30">
           <div class="card-body row">
              <div class="col-6 card-title align-self-center mb-0">

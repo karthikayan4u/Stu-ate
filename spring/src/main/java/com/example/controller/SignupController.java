@@ -46,10 +46,10 @@ public class SignupController {
         props.put("mail.smtp.socketFactory.port", "465");  
         props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");  
         props.put("mail.smtp.socketFactory.fallback", "false");  
-        //get Session   
+        //get Session
         Session session = Session.getDefaultInstance(props,    
          new javax.mail.Authenticator() {    
-         protected PasswordAuthentication getPasswordAuthentication() {    
+         protected PasswordAuthentication getPasswordAuthentication() {   
          return new PasswordAuthentication("karthikayanmailsamy@gmail.com", "evrytnghpnsfrare");
          }    
         });    
