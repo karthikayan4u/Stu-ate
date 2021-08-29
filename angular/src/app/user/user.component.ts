@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit, ValueProvider } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router'
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserService } from './user.service';
 import { User, Chat, Resource } from './user';
 import * as SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -25,7 +25,7 @@ export class UserComponent implements OnInit, OnDestroy {
   public receiver!: User;
   public chat!: Chat;
   message!: string;
-  url = 'https://8080-edabbbfddaeafafcbacaceeeeefbdffc.examlyiopb.examly.io';
+  url = environment.apiBaseUrl;
   stompClient: any;
 
   constructor(public userService: UserService,private router: Router, private actroute: ActivatedRoute) { }

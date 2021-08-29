@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'https://8080-edabbbfddaeafafcbacaceeeeefbdffc.examlyiopb.examly.io/', //backend server port
+  apiBaseUrl: 'http://127.0.0.1:8000', //backend server port
 };
 
 /*
@@ -12,6 +12,6 @@ export const environment = {
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
  *
  * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
+ * on performance if an error is thrown.https://8080-edabbbfddaeafafcbacaceeeeefbdffc.examlyiopb.examly.io/
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
